@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { signup } from '../api';
+import { login } from '../api';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
@@ -12,6 +13,8 @@ const Signup = () => {
         try {
             const response = await signup(form);
             setMessage(response.data.message || 'Signup successful');
+            const loginResponse = await login({ email: form.email, password: form.password });
+            setMessage(loginResponse.data.message || 'Logged in successfully');
             // Redirect after successful signup
             navigate('/dashboard');
         } catch (err) {
