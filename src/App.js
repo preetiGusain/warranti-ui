@@ -1,4 +1,4 @@
-import {BrowserRouter as Router , Route , Routes } from "react-router-dom";
+import {BrowserRouter , Route , Routes } from "react-router-dom";
 import './App.css';
 import AuthPage from "./pages/Login"; 
 import HomePage from "./pages/HomePage";
@@ -6,12 +6,12 @@ import HomePage from "./pages/HomePage";
 
 function App() {
   return (
-      <Router>
+      <BrowserRouter basename="/warranti-ui">
         <Routes>
           <Route path="/" element={<AuthPage />}></Route>
           <Route path="/home" element={<HomePage />}></Route>
         </Routes>
-      </Router>
+      </BrowserRouter>
   );
 }
 
