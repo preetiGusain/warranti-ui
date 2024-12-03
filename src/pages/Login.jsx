@@ -60,7 +60,7 @@ function AuthPage() {
         `https://warranti-backend.onrender.com/auth/${
           !signin ? "login" : "signup"
         }`,
-        formData
+        formData, { withCredentials: true }
       );
       const { user } = response.data;
       delete user.password;
