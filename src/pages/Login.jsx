@@ -70,7 +70,7 @@ function AuthPage() {
             user.profilePicture = gravatarUrl;
 
             localStorage.setItem("user", JSON.stringify(user));
-            window.location.href = "/Home";
+            window.location.href = "/home";
         } catch (error) {
             console.error("Authentication error:", error);
             if (
