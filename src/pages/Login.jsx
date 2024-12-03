@@ -126,7 +126,7 @@ function AuthPage() {
                                     <button className="hidden" onClick={ToggleSign}>
                                         Sign In
                                     </button>
-                                    <span>Already Have an Account?</span>
+                                    <span>Already have an Account?</span>
                                 </div>
                             ) : (
                                 <div className="togglebtnlogin">
