@@ -1,4 +1,4 @@
-import {BrowserRouter, Route , Routes } from "react-router-dom";
+import {BrowserRouter as Router , Route , Routes } from "react-router-dom";
 import './App.css';
 import AuthPage from "./pages/Login"; 
 import HomePage from "./pages/HomePage";
@@ -6,12 +6,12 @@ import HomePage from "./pages/HomePage";
 
 function App() {
   return (
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path="/" element={<AuthPage />}></Route>
-          <Route path="/home" element={<HomePage />}></Route>
+          <Route path="/Home" element={<HomePage />}></Route>
         </Routes>
-      </BrowserRouter>
+      </Router>
   );
 }
 
