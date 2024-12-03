@@ -58,7 +58,7 @@ function AuthPage() {
         try {
             const response = await axios.post(
                 `https://warranti-backend.onrender.com/auth/${
-                    signin ? "signup" : "login"
+                    !signin ? "login" : "register"
                 }`,
                 formData, { withCredentials: true }
             );
@@ -107,7 +107,7 @@ function AuthPage() {
                                 />
                             </div>
                             <div className="form-container sign-in">
-                                <LogInForm
+                                <SignInForm
                                     formData={formData}
                                     handleInputChange={handleInputChange}
                                     handleGoogleLogin={handleGoogleLogin}
@@ -210,11 +210,11 @@ function SignUpForm(props) {
     );
 }
 
-function LogInForm(props) {
+function SignInForm(props) {
     return (
         <>
             <form>
-                <h1>Log in</h1>
+                <h1>Sign in</h1>
                 <div>
                     <button className="GoogleBtn" onClick={props.handleGoogleLogin}>
                         <FcGoogle className="icon" /> Sign in with Google
@@ -237,7 +237,7 @@ function LogInForm(props) {
                     placeholder="Password"
                     required
                 />
-                <button onClick={props.handleSubmit}>Login</button>
+                <button onClick={props.handleSubmit}>Sign In</button>
             </form>
         </>
     );
