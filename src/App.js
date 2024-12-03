@@ -1,28 +1,18 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-import Home from './components/Home';
-import Signup from './components/Signup';
+import {BrowserRouter as Router , Route , Routes } from "react-router-dom";
+import './App.css';
+import AuthPage from "./pages/Login"; 
+import HomePage from "./pages/HomePage";
+ import "react-toastify/dist/ReactToastify.css";
 
-const App = () => {
-    return (
-        <Router>
-            <Routes>
-                {/* Redirect "/" to "/home" */}
-                <Route path="/" element={<Navigate to="/home" replace />} />
-
-                {/* Public Home Route */}
-                <Route path="/home" element={<Home />} />
-
-                <Route path="/signup" element={<Signup />} />
-
-                {/* Protected Dashboard Route */}
-                <Route path="/dashboard" element={<Dashboard />} />
-
-            </Routes>
-        </Router>
-
-    );
-};
+function App() {
+  return (
+      <Router>
+        <Routes>
+          <Route path="/" element={<AuthPage />}></Route>
+          <Route path="/Home" element={<HomePage />}></Route>
+        </Routes>
+      </Router>
+  );
+}
 
 export default App;
