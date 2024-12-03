@@ -3,7 +3,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import md5 from "md5";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function AuthPage() {
@@ -93,7 +93,6 @@ function AuthPage() {
 
   return (
     <>
-      <ToastContainer />
       <div className="LoginPage">
         <Container className={`LoginPageContainer ${signin ? "active" : ""}`}>
           <Row>
