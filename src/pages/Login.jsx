@@ -58,7 +58,7 @@ function AuthPage() {
         try {
             const response = await axios.post(
                 `https://warranti-backend.onrender.com/auth/${
-                    !signin ? "login" : "register"
+                    !signin ? "login" : "signup"
                 }`,
                 formData, { withCredentials: true }
             );
