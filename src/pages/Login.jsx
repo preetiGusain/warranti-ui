@@ -50,7 +50,6 @@ function AuthPage() {
        return;
      }
 
-     // Check password length
      if (formData.password.length < 8) {
        notifyError("Password must be at least 8 characters long");
        return;
