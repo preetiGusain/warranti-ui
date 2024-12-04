@@ -9,11 +9,11 @@ import { ToastContainer } from "react-toastify";
 function App() {
     return (
         <>
-        <ToastContainer/>
-        <Routes>
-            <Route path="/" element={<AuthPage />}/>
-            <Route path="/home" element={<HomePage />}/>
-        </Routes>
+            <ToastContainer />
+            <Routes>
+                <Route path="/" element={<AuthPage />} />
+                <Route path="/home" element={<HomePage />} />
+            </Routes>
         </>
     );
 }
