@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/warranti-ui/static/css/main.3745e7ff.css",
-    "main.js": "/warranti-ui/static/js/main.8f55b6c3.js",
+    "main.js": "/warranti-ui/static/js/main.a4dedeaa.js",
     "static/js/453.3b3fa17a.chunk.js": "/warranti-ui/static/js/453.3b3fa17a.chunk.js",
     "index.html": "/warranti-ui/index.html",
     "main.3745e7ff.css.map": "/warranti-ui/static/css/main.3745e7ff.css.map",
-    "main.8f55b6c3.js.map": "/warranti-ui/static/js/main.8f55b6c3.js.map",
+    "main.a4dedeaa.js.map": "/warranti-ui/static/js/main.a4dedeaa.js.map",
     "453.3b3fa17a.chunk.js.map": "/warranti-ui/static/js/453.3b3fa17a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3745e7ff.css",
-    "static/js/main.8f55b6c3.js"
+    "static/js/main.a4dedeaa.js"
   ]
 }
