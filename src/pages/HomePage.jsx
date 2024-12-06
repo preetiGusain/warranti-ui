@@ -3,6 +3,7 @@ import { Container, Col, Row, Button, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { backend_uri } from "../constants";
 
 function HomePage(props) {
 
@@ -16,13 +17,12 @@ function HomePage(props) {
 
     const handleLogout = () => {
         axios
-            .get("https://warranti-backend.onrender.com/auth/logout", {
+            .get(`${backend_uri}/auth/logout`, {
                 withCredentials: true,
             })
             .then(() => {
-                window.location.href = "/";
+                window.location.href = "/warranti-ui/";
                 setUser(null);
-                localStorage.removeItem("user");
                 notifyLoading();
             })
             .catch((error) => {
@@ -31,24 +31,18 @@ function HomePage(props) {
     };
 
     const fetchUser = async () => {
-        const loggedInUser = localStorage.getItem("user");
-        if (loggedInUser) {
-            setUser(JSON.parse(loggedInUser));
+        try {
+            const response = await axios.get(
+                `${backend_uri}/user/profile`,
+                {
+                    withCredentials: true,
+                }
+            );
+            setUser(response.data);
             setLoading(false);
-        } else {
-            try {
-                const response = await axios.get(
-                    `https://warranti-backend.onrender.com/user/profile/`,
-                    {
-                        withCredentials: true,
-                    }
-                );
-                setUser(response.data.user);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-                setLoading(false);
-            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            setLoading(false);
         }
     };
 

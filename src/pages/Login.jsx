@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
-import md5 from "md5";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { backend_uri } from "../constants";
 
 function AuthPage() {
   const [formData, setFormData] = useState({
@@ -56,20 +56,15 @@ function AuthPage() {
      }
     try {
       const response = await axios.post(
-        `https://warranti-backend.onrender.com/auth/${
+        `${backend_uri}/auth/${
           !signin ? "login" : "signup"
         }`,
-        formData
+        formData,
+        { withCredentials: true }
       );
-      const { user } = response.data;
-      delete user.password;
-      const gravatarUrl = `https://www.gravatar.com/avatar/${md5(
-        user.email
-      )}?d=identicon`;
-      user.profilePicture = gravatarUrl;
-
-      localStorage.setItem("user", JSON.stringify(user));
-      window.location.href = "/home";
+      if(response.status === 200) {
+        window.location.href = '/warranti-ui/home';
+      }
     } catch (error) {
       console.error("Authentication error:", error);
       if (
@@ -87,7 +82,7 @@ function AuthPage() {
   const handleGoogleLogin = (event) => {
     event.preventDefault();
     window.location.href =
-      "https://warranti-backend.onrender.com/oauth/google";
+      `${backend_uri}/oauth/google`;
   };
 
   return (
