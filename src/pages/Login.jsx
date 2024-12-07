@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -7,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { backend_uri } from "../constants";
 
 function AuthPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -62,8 +64,11 @@ function AuthPage() {
         formData,
         { withCredentials: true }
       );
+      console.log(response);
+      
       if(response.status === 200) {
-        window.location.href = '/warranti-ui/home';
+        console.log("You are going to home page");
+        navigate("/home");
       }
     } catch (error) {
       console.error("Authentication error:", error);

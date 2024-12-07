@@ -4,8 +4,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { backend_uri } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 function HomePage(props) {
+    const navigate = useNavigate();
 
     const notifyLoading = () => {
         toast.info("Logging Out Successfull..");
@@ -21,7 +23,7 @@ function HomePage(props) {
                 withCredentials: true,
             })
             .then(() => {
-                window.location.href = "/warranti-ui/";
+                navigate("/");
                 setUser(null);
                 notifyLoading();
             })
