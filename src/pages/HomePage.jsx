@@ -8,6 +8,12 @@ import { useNavigate } from "react-router-dom";
 
 function HomePage(props) {
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      }
 
     const notifyLoading = () => {
         toast.info("Logging Out Successfull..");
@@ -21,6 +27,7 @@ function HomePage(props) {
         axios
             .get(`${backend_uri}/auth/logout`, {
                 withCredentials: true,
+                headers: headers
             })
             .then(() => {
                 navigate("/");
@@ -38,6 +45,7 @@ function HomePage(props) {
                 `${backend_uri}/user/profile`,
                 {
                     withCredentials: true,
+                    headers: headers
                 }
             );
             setUser(response.data);

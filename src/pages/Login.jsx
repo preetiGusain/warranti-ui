@@ -67,6 +67,8 @@ function AuthPage() {
       console.log(response);
       
       if(response.status === 200) {
+        // save token to localstorage
+        localStorage.setItem("token", response.data.token);
         console.log("You are going to home page");
         navigate("/home");
       }
