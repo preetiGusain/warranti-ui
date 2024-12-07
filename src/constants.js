@@ -1,1 +1,1 @@
-export const backend_uri = "http://localhost:3000";
+export const backend_uri = "http://warranti-backend.onrender.com";
