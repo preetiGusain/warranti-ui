@@ -19,7 +19,7 @@ function AuthPage() {
   const notifyError = (message) => {
     toast.error(message);
   };
-  
+
 
   function ToggleSign(event) {
     event.preventDefault();
@@ -41,32 +41,31 @@ function AuthPage() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-     if (!formData.username.trim() && signin) {
-       notifyError("Username cannot be empty");
-       return;
-     }
+    if (!formData.username.trim() && signin) {
+      notifyError("Username cannot be empty");
+      return;
+    }
 
-     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-     if (!emailRegex.test(formData.email)) {
-       notifyError("Enter a valid email address");
-       return;
-     }
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formData.email)) {
+      notifyError("Enter a valid email address");
+      return;
+    }
 
-     if (formData.password.length < 8) {
-       notifyError("Password must be at least 8 characters long");
-       return;
-     }
+    if (formData.password.length < 8) {
+      notifyError("Password must be at least 8 characters long");
+      return;
+    }
     try {
       const response = await axios.post(
-        `${backend_uri}/auth/${
-          !signin ? "login" : "signup"
+        `${backend_uri}/auth/${!signin ? "login" : "signup"
         }`,
         formData,
         { withCredentials: true }
       );
       console.log(response);
-      
-      if(response.status === 200) {
+
+      if (response.status === 200) {
         // save token to localstorage
         localStorage.setItem("token", response.data.token);
         console.log("You are going to home page");

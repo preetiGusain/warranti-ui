@@ -4,11 +4,21 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { backend_uri } from "../constants";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function HomePage(props) {
     const navigate = useNavigate();
-    const token = localStorage.getItem("token");
+    const [searchParams] = useSearchParams();
+    const [token, setToken] = useState(null);
+
+    useEffect( () => {
+        if(searchParams.has('token')) {
+            setToken(searchParams.get('token'));
+            localStorage.setItem('token', searchParams.get('token'));
+        } else {
+            setToken(localStorage.getItem('token'));
+        }
+    },[]);
 
     const headers = {
         'Content-Type': 'application/json',
@@ -58,7 +68,7 @@ function HomePage(props) {
 
     useEffect(() => {
         fetchUser();
-    }, []);
+    }, [token]);
 
     return (
         <>
