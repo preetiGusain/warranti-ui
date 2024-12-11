@@ -12,6 +12,9 @@ function CreateWarranty() {
         warrantyDuration: "",
         warrantyDurationUnit: "Month",
         purchaseDate: "",
+        warrantyCard: null,
+        receipt: null,
+        product: null
     });
 
     const [token, setToken] = useState(null);
@@ -34,16 +37,28 @@ function CreateWarranty() {
         }));
     }
 
+    function handleFileChange(event, field) {
+        setFormData((prevData) => ({
+            ...prevData,
+            [field]: event.target.files[0],
+        }));
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
 
-        console.log("Form Data: ", formData); 
+        console.log("Form Data: ", formData);
 
         const warranty = new FormData();
         warranty.append("productName", formData.productName);
         warranty.append("warrantyDuration", formData.warrantyDuration);
         warranty.append("warrantyDurationUnit", formData.warrantyDurationUnit);
         warranty.append("purchaseDate", formData.purchaseDate);
+
+        //adding images
+        if (formData.warrantyCard) warranty.append("warrantyCard", formData.warrantyCard);
+        if (formData.receipt) warranty.append("receipt", formData.receipt);
+        if (formData.product) warranty.append("product", formData.warranty);
 
         try {
             const headers = {
@@ -54,19 +69,23 @@ function CreateWarranty() {
                 `${backend_uri}/warranty/create`,
                 formData,
                 { withCredentials: true, headers: headers }
-              );
+            );
 
             setFormData({
                 productName: "",
                 warrantyDuration: "",
                 warrantyDurationUnit: "",
                 purchaseDate: "",
+                warrantyCard: null,
+                receipt: null,
+                product: null
             })
+            alert("Warranty created successfully.");
         } catch (error) {
             console.error("Error occurred while creating warranty", error);
         }
         console.log("Warranty created successfully");
-        //navigate("/home");
+        alert("Error creating warranty.");
     }
 
     return (
@@ -114,6 +133,34 @@ function CreateWarranty() {
                         name="purchaseDate"
                         value={formData.purchaseDate}
                         onChange={handleInputChange}
+                    />
+                </Form.Group>
+
+                {/**Adding images */}
+                <Form.Group controlId="warrantyCard" style={{ marginBottom: "15px" }}>
+                    <Form.Label>Upload Warranty Card</Form.Label>
+                    <Form.Control
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, "warrantyCard")}
+                    />
+                </Form.Group>
+
+                <Form.Group controlId="receipt" style={{ marginBottom: "15px" }}>
+                    <Form.Label>Upload Receipt</Form.Label>
+                    <Form.Control
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, "receipt")}
+                    />
+                </Form.Group>
+
+                <Form.Group controlId="product" style={{ marginBottom: "15px" }}>
+                    <Form.Label>Upload Product Image</Form.Label>
+                    <Form.Control
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, "product")}
                     />
                 </Form.Group>
 
