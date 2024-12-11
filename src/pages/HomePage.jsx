@@ -84,21 +84,21 @@ function HomePage(props) {
                         <>
                             <Row>
                                 <Col md={12}>
-                                    <h1>Welcome to Warranti</h1>
+                                    <h1>Warranti</h1>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col md={12}>
-                                    <h1>Profile</h1>
                                     <div className="profile-info">
                                         <div className="profile-image">
                                             <img src={user.profilePicture} alt="Profile" />
                                         </div>
                                         <div className="profile-details">
-                                            <p>Username: {user.username}</p>
-                                            <p>Email: {user.email}</p>
+                                            <p>{user.username}</p>
                                         </div>
                                     </div>
+                                    <Button onClick={()=>navigate("/create")}>Create</Button>
+                                    <br></br>
                                     <Button onClick={handleLogout}>Logout</Button>
                                 </Col>
                             </Row>
