@@ -30,11 +30,18 @@ function CreateWarranty() {
     }, []);
 
     function handleInputChange(event) {
-        const { name, value } = event.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+        const { name, value, type } = event.target;
+        if (type === "select-one") {
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        } else {
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        }
     }
 
     function handleFileChange(event, field) {
@@ -81,15 +88,21 @@ function CreateWarranty() {
                 product: null
             })
             alert("Warranty created successfully.");
+            if (response.status === 200) {
+                console.log("You are going to home page");
+                navigate("/home");
+            }
         } catch (error) {
             console.error("Error occurred while creating warranty", error);
+            alert("Failed to create warranty.");
         }
-        console.log("Warranty created successfully");
-        alert("Error creating warranty.");
     }
 
     return (
-        <div style={{ padding: "20px", maxWidth: "600px", margin: "auto", border: "1px solid #ddd", borderRadius: "8px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
+        <div style={{
+            padding: "20px", maxWidth: "600px", margin: "auto", border: "1px solid #ddd", borderRadius: "8px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)", height: "100vh", display: "flex", flexDirection: "column"
+        }}>
             <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Create Warranty</h2>
 
             <Form onSubmit={handleSubmit}>
@@ -121,8 +134,8 @@ function CreateWarranty() {
                         name="warrantyDurationUnit"
                         value={formData.warrantyDurationUnit}
                         onChange={handleInputChange}>
-                        <option value="Month">Months</option>
-                        <option value="Year">Years</option>
+                        <option value="Month">Month</option>
+                        <option value="Year">Year</option>
                     </Form.Control>
                 </Form.Group>
 
