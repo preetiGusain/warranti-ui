@@ -4,6 +4,7 @@ import { Button, Form, ProgressBar } from "react-bootstrap";
 import axios from "axios";
 import { backend_uri } from "../constants";
 import { useSearchParams } from "react-router-dom";
+import './CreateWarranty.css';
 
 function CreateWarranty() {
     const navigate = useNavigate();

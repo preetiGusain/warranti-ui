@@ -15,47 +15,49 @@
     display: none;
 }
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif !important; 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
 }
 
 body {
-  background-color: #96aefb;
-  background: linear-gradient(to right, #dab8fc, #afc2ff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+    background-color: #96aefb;
+    background: linear-gradient(to right, #dab8fc, #afc2ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
-body h1{
-  font-size: 2rem ;
-  font-weight: bold !important;
+
+body h1 {
+    font-size: 2rem;
+    font-weight: bold !important;
 }
 .LoginPageContainer,
-.HomePageContainer{
+.HomePageContainer {
     background-color: #fff;
-  border-radius: 35px;
-  box-shadow: 0 5px 15px  rgba(0, 0, 0, 0.35);
-  position: relative;
-  overflow: hidden;
-  max-width: 100%;
-  width: 768px !important;
-  min-height: 480px;
+    border-radius: 35px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    width: 768px !important;
+    min-height: 480px;
 }
-.LoginPageContainer p{
+
+.LoginPageContainer p {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.3px;
     margin: 20px 0;
 }
 
-.LoginPageContainer span{
+.LoginPageContainer span {
     font-size: 12px;
 }
 
-.LoginPageContainer a{
+.LoginPageContainer a {
     color: #333;
     font-size: 13px;
     text-decoration: none;
@@ -63,9 +65,8 @@ body h1{
 }
 
 .LoginPageContainer button,
-.HomePageContainer button
-{
-    background-color:rgb(122, 50, 199);
+.HomePageContainer button {
+    background-color: rgb(122, 50, 199);
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -80,29 +81,28 @@ body h1{
 }
 
 .LoginPageContainer button:hover,
-.HomePageContainer button:hover
-{
-    
+.HomePageContainer button:hover {
+
     background-color: #00a1ff;
 }
 .LoginPageContainer button:active,
-.HomePageContainer button:active
-{
-    
+.HomePageContainer button:active {
+
     background-color: #045d90;
 }
 
-.LoginPageContainer button.hidden{
+.LoginPageContainer button.hidden {
     background-color: transparent;
     transition: all 0.2sec ease !important;
     border-color: #fff;
 }
-.LoginPageContainer button.hidden:hover{
-box-shadow: 0 0 5px 1px white;
+
+.LoginPageContainer button.hidden:hover {
+    box-shadow: 0 0 5px 1px white;
 }
 
 
-.LoginPageContainer form{
+.LoginPageContainer form {
     background-color: #fff;
     display: flex;
     align-items: center;
@@ -112,7 +112,7 @@ box-shadow: 0 0 5px 1px white;
     height: 100%;
 }
 
-.LoginPageContainer input{
+.LoginPageContainer input {
     background-color: #eee;
     border: none;
     margin: 8px 0;
@@ -123,57 +123,75 @@ box-shadow: 0 0 5px 1px white;
     outline: none;
 }
 
-.form-container{
+.form-container {
     position: absolute;
     top: 0;
     height: 100%;
     transition: all 0.6s ease-in-out;
 }
-.SmallScreenBtn{
+
+.SmallScreenBtn {
     display: none !important;
 }
-.sign-in{
+
+.sign-in {
     left: 0;
     width: 50%;
     z-index: 2;
 }
 
-.LoginPageContainer.active .sign-in{
+.LoginPageContainer.active .sign-in {
     transform: translateX(100%);
 }
 
-.sign-up{
+.sign-up {
     left: 0;
     width: 50%;
     opacity: 0;
     z-index: 1;
 }
-.OverlayAnimation{
+
+.OverlayAnimation {
     display: none !important;
 }
-.LoginPageContainer.active .sign-up{
+
+.LoginPageContainer.active .sign-up {
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
     animation: move 0.6s;
 }
+.product-image {
+    width: 100%;
+    max-width: 200px;
+    margin-right: 20px;
+    border-radius: 8px;
+}
 
-@keyframes move{
-    0%, 49.99%{
+.HomePageContainer {
+    padding: 20px;
+}
+
+@keyframes move {
+
+    0%,
+    49.99% {
         opacity: 0;
         z-index: 1;
     }
-    50%, 100%{
+
+    50%,
+    100% {
         opacity: 1;
         z-index: 5;
     }
 }
 
-.social-icons{
+.social-icons {
     margin: 20px 0;
 }
 
-.social-icons a{
+.social-icons a {
     border: 1px solid #ccc;
     border-radius: 20%;
     display: inline-flex;
@@ -184,7 +202,7 @@ box-shadow: 0 0 5px 1px white;
     height: 40px;
 }
 
-.toggle-container{
+.toggle-container {
     position: absolute;
     top: 0;
     left: 50%;
@@ -196,15 +214,15 @@ box-shadow: 0 0 5px 1px white;
     z-index: 1000;
 }
 
-.LoginPageContainer.active .toggle-container{
+.LoginPageContainer.active .toggle-container {
     transform: translateX(-100%);
     border-radius: 0 150px 100px 0;
 }
 
-.toggle{
+.toggle {
     background-color: linear-gradient(to left, #00a1ff, #00ff8f);
     height: 100%;
-    background: linear-gradient(to right, #C33764  , #1D2671);
+    background: linear-gradient(to right, #C33764, #1D2671);
     color: #fff;
     position: relative;
     left: -100%;
@@ -214,11 +232,11 @@ box-shadow: 0 0 5px 1px white;
     transition: all 0.6s ease-in-out;
 }
 
-.LoginPageContainer.active .toggle{
+.LoginPageContainer.active .toggle {
     transform: translateX(50%);
 }
 
-.toggle-panel{
+.toggle-panel {
     position: absolute;
     width: 50%;
     height: 100%;
@@ -233,98 +251,113 @@ box-shadow: 0 0 5px 1px white;
     transition: all 0.6s ease-in-out;
 }
 
-.toggle-left{
+.toggle-left {
     transform: translateX(-200%);
 }
 
-.LoginPageContainer.active .toggle-left{
+.LoginPageContainer.active .toggle-left {
     transform: translateX(0);
 }
 
-.toggle-right{
+.toggle-right {
     right: 0;
     transform: translateX(0);
 }
 
-.LoginPageContainer.active .toggle-right{
+.LoginPageContainer.active .toggle-right {
     transform: translateX(200%);
 }
 
-.GoogleBtn{
-  font-size: 14px !important;
-  font-weight: 450 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 10px 20px !important;
-  background-color: #fff !important;
-  border: 1px solid #ccc !important;
-  border-radius: 20px !important;
-  cursor: pointer !important;
-  transition: background-color 0.3s ease !important;
-  color: black !important;
-  font-family: 'Roboto', sans-serif !important;
-  text-transform:none !important;
-  margin: 20px auto !important;
+.GoogleBtn {
+    font-size: 14px !important;
+    font-weight: 450 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px 20px !important;
+    background-color: #fff !important;
+    border: 1px solid #ccc !important;
+    border-radius: 20px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s ease !important;
+    color: black !important;
+    font-family: 'Roboto', sans-serif !important;
+    text-transform: none !important;
+    margin: 20px auto !important;
 }
 .GoogleBtn:hover {
-  background-color: #f0f0f0 !important;
+    background-color: #f0f0f0 !important;
 }
 
 .GoogleBtn .icon {
-  font-size:20px !important;
-  margin-right: 10px !important;
+    font-size: 20px !important;
+    margin-right: 10px !important;
 }
 
 
 
 .ProfileContainer,
-.profile{
+.profile {
     display: flex;
     text-align: center;
-    gap:35px;
+    gap: 35px;
     justify-content: center;
     flex-direction: column;
     align-items: center;
 }
-.profile-image img{
+
+.profile-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-image img.profile-icon {
+    width: 100px;
     height: 100px;
     border-radius: 50%;
-    margin-bottom: 1rem;
-
+    object-fit: cover;
+    border: 3px solid #afc2ff;
+    transition: transform 0.3s ease-in-out;
 }
-.ResponseDiv{
+
+.ResponseDiv {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.form-pw{
 
-    height:auto !important;
+.form-pw {
+
+    height: auto !important;
 }
-.ResponseDivButton{
+
+.ResponseDivButton {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
-.PwPage{
+
+.PwPage {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.PwPage p{
+
+.PwPage p {
     text-align: center !important;
 }
-.PwPageContainer{
+
+.PwPageContainer {
     min-height: 480px !important;
     display: flex !important;
     align-items: center !important;
 }
 
-.PwPage input{
+.PwPage input {
     width: 350px !important;
 }
 
@@ -332,156 +365,179 @@ box-shadow: 0 0 5px 1px white;
 
 
 @media (max-width:475px) {
-    .PwPage input{
-    width: 250px !important;
-}
-        .profile-image img{
-    height: 70px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
+    .PwPage input {
+        width: 250px !important;
+    }
 
-}
+    .profile-image img {
+        height: 70px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
 
-        .ProfileContainer,
-.profile{
-    gap:25px;
-}
-.profile p{
-    font-size: 12px ;
-    font-weight: 500;
-}
-.toggle-container{
-    display:none !important;
-}
-.LoginPageContainer,
-.HomePageContainer{
-    max-width: 320px !important;
-    min-height: 450px !important;
-    border-radius: 19px !important;
-    overflow: hidden !important; 
-}
-.LoginPageContainer button,
-.HomePageContainer button
-{
-font-size: 10px;
-padding: 8px 30px;
-border-radius: 6px;
-font-weight: 600;
-letter-spacing: 0.5px;
-text-transform: uppercase;
-margin-top: 8px;
-cursor: pointer;
-}
-.LoginPageContainer p{
-    font-size: 14px !important;
-}
-.LoginPageContainer span{
-    font-size: 12px !important;
-    margin-bottom: 10px !important;
-}
-.form-container{
-    width: 100% !important;
-}
-h1{
-font-size: 1.5rem !important;
-font-weight: bold !important;
-}
-.LoginPageContainer a{
-font-size: 12px;}
-.LoginPageContainer form{
-    padding: 0 27px !important;
-}
-    
-.GoogleBtn{
+    }
+
+    .ProfileContainer,
+    .profile {
+        gap: 25px;
+    }
+
+    .profile p {
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .toggle-container {
+        display: none !important;
+    }
+    .LoginPageContainer,
+    .HomePageContainer {
+        max-width: 320px !important;
+        min-height: 450px !important;
+        border-radius: 19px !important;
+        overflow: hidden !important;
+    }
+    .LoginPageContainer button,
+    .HomePageContainer button {
+        font-size: 10px;
+        padding: 8px 30px;
+        border-radius: 6px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-top: 8px;
+        cursor: pointer;
+    }
+
+    .LoginPageContainer p {
+        font-size: 14px !important;
+    }
+
+    .LoginPageContainer span {
+        font-size: 12px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .form-container {
+        width: 100% !important;
+    }
+
+    h1 {
+        font-size: 1.5rem !important;
+        font-weight: bold !important;
+    }
+
+    .LoginPageContainer a {
+        font-size: 12px;
+    }
+
+    .LoginPageContainer form {
+        padding: 0 27px !important;
+    }
+
+    .GoogleBtn {
         font-size: 11px !important;
         padding: 5px 10px !important;
-}
-.GoogleBtn .icon {
-    font-size:15px !important;
-    margin-right: 10px !important;
-}
-.LoginPageContainer input{
-    margin: 8px 0;
-    padding: 8px 12px;
-    font-size: 10px;
-    width:85%;
-} 
-.LoginPageContainer.active .sign-up{
-    transform: translateY(6%) !important;
-}
-.LoginPageContainer .sign-up{
-    transform: translateY(-5%) !important;
-}
-
-.LoginPageContainer.active .sign-in{
-    transform: translateY(40%) !important;
-}
-.LoginPageContainer .sign-in{
-    transform: translateY(-5%) !important;
-}
-h1{
-    margin-bottom: 0 !important;
-}
-.OverlayAnimation{
-    transform: translateY(127%) !important;
-    transition: all 1s ease !important;
-    display: block !important;
-    content: " ";
-    overflow: hidden !important;
-    border-radius: 20px !important;
-    height: 300px !important;
-    width:100% !important; 
-    z-index: 200 !important;
-    color: white !important;
-    background: linear-gradient(to right, #C33764  , #1D2671);
-}
-.LoginPageContainer.active .OverlayAnimation{
-    transform: translateY(-65%) !important;
-    display: flex !important;
-    content: " ";
-    height: 200px !important;
-    border-radius: 20px !important;
-    width:100% !important; 
-    z-index: 999 !important;
-    background: linear-gradient(to right, #dd678c  , #6370e7);
-}
-.OverlayAnimation{
-    display: flex !important;
-    justify-content: center !important; 
-    margin-bottom: auto !important;
-    margin-top: auto !important;
-    position:relative;
-}
-.OverlayAnimation button{
-    margin-top: -7px !important;
-}
-.togglebtnlogin{
-    display: flex !important;
-    justify-content: center !important;
-    position: absolute !important;
-    flex-direction: column !important;
-    top:1% !important;
-}
-
-.LoginPageContainer.active .OverlayAnimation .togglebtnlogin{
-    top:auto !important;
-    bottom: 0 !important;
-
-}
-.LoginPageContainer.active .OverlayAnimation button{
-    /* padding: 6px 20px !important; */
-    margin-top: 0 !important;
-}
-.LoginPageContainer.active .OverlayAnimation span{
-    /* padding: 6px 20px !important; */
-    margin-top: 4px !important;
-    margin-bottom: 5px !important;
-}
-.form-pw{
-
-height:auto !important;
-}
-.PwPage p{
-    text-align: center !important;
-}
     }
+    .GoogleBtn .icon {
+        font-size: 15px !important;
+        margin-right: 10px !important;
+    }
+
+    .LoginPageContainer input {
+        margin: 8px 0;
+        padding: 8px 12px;
+        font-size: 10px;
+        width: 85%;
+    }
+
+    .LoginPageContainer.active .sign-up {
+        transform: translateY(6%) !important;
+    }
+
+    .LoginPageContainer .sign-up {
+        transform: translateY(-5%) !important;
+    }
+
+    .LoginPageContainer.active .sign-in {
+        transform: translateY(40%) !important;
+    }
+
+    .LoginPageContainer .sign-in {
+        transform: translateY(-5%) !important;
+    }
+
+    h1 {
+        margin-bottom: 0 !important;
+    }
+
+    .OverlayAnimation {
+        transform: translateY(127%) !important;
+        transition: all 1s ease !important;
+        display: block !important;
+        content: " ";
+        overflow: hidden !important;
+        border-radius: 20px !important;
+        height: 300px !important;
+        width: 100% !important;
+        z-index: 200 !important;
+        color: white !important;
+        background: linear-gradient(to right, #C33764, #1D2671);
+    }
+
+    .LoginPageContainer.active .OverlayAnimation {
+        transform: translateY(-65%) !important;
+        display: flex !important;
+        content: " ";
+        height: 200px !important;
+        border-radius: 20px !important;
+        width: 100% !important;
+        z-index: 999 !important;
+        background: linear-gradient(to right, #dd678c, #6370e7);
+    }
+
+    .OverlayAnimation {
+        display: flex !important;
+        justify-content: center !important;
+        margin-bottom: auto !important;
+        margin-top: auto !important;
+        position: relative;
+    }
+
+    .OverlayAnimation button {
+        margin-top: -7px !important;
+    }
+
+    .togglebtnlogin {
+        display: flex !important;
+        justify-content: center !important;
+        position: absolute !important;
+        flex-direction: column !important;
+        top: 1% !important;
+    }
+
+    .LoginPageContainer.active .OverlayAnimation .togglebtnlogin {
+        top: auto !important;
+        bottom: 0 !important;
+
+    }
+
+    .LoginPageContainer.active .OverlayAnimation button {
+        /* padding: 6px 20px !important; */
+        margin-top: 0 !important;
+    }
+
+    .LoginPageContainer.active .OverlayAnimation span {
+        /* padding: 6px 20px !important; */
+        margin-top: 4px !important;
+        margin-bottom: 5px !important;
+    }
+
+    .form-pw {
+
+        height: auto !important;
+    }
+
+    .PwPage p {
+        text-align: center !important;
+    }
+}
