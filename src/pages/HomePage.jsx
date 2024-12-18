@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { backend_uri } from "../constants";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
-    Container,
     Grid,
     Typography,
     Avatar,
     Button,
-    CircularProgress,
     Box,
     Card,
     CardMedia,
     CardContent
 } from "@mui/material";
-import { backend_uri } from "../constants";
-import { useNavigate, useSearchParams } from "react-router-dom";
+
 
 function HomePage(props) {
     const navigate = useNavigate();
@@ -25,35 +24,54 @@ function HomePage(props) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const getWarranties = async () => {
-            try {
-                const response = await axios.get(
-                    `${backend_uri}/warranty/warranties`,
-                    {
-                        withCredentials: true,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': token
-                        }
-                    }
-                );
-                setWarranties(response.data.warranties);
-            } catch (error) {
-                console.error("Error fetching warranties:", error);
-            }
-        }
         if (searchParams.has('token')) {
             setToken(searchParams.get('token'));
             localStorage.setItem('token', searchParams.get('token'));
         } else {
             setToken(localStorage.getItem('token'));
         }
+        fetchUser();
         getWarranties();
-    }, []);
+    }, [token]);
 
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': token,
+    }
+
+    const fetchUser = async () => {
+        try {
+            const response = await axios.get(
+                `${backend_uri}/user/profile`,
+                {
+                    withCredentials: true,
+                    headers: headers
+                }
+            );
+            setUser(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            setLoading(false);
+        }
+    };
+
+    const getWarranties = async () => {
+        try {
+            const response = await axios.get(
+                `${backend_uri}/warranty/warranties`,
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    }
+                }
+            );
+            setWarranties(response.data.warranties);
+        } catch (error) {
+            console.error("Error fetching warranties:", error);
+        }
     }
 
     const notifyLoading = () => {
@@ -76,26 +94,6 @@ function HomePage(props) {
             });
     };
 
-    const fetchUser = async () => {
-        try {
-            const response = await axios.get(
-                `${backend_uri}/user/profile`,
-                {
-                    withCredentials: true,
-                    headers: headers
-                }
-            );
-            setUser(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchUser();
-    }, [token]);
 
     return (
         <>
@@ -140,13 +138,13 @@ function HomePage(props) {
 
                         {/* Profile Icon */}
                         {user && (
-                        <Avatar
-                            alt={user.name || "Profile"}
-                            src={user.profilePicture || "/default-avatar.png"}
-                            sx={{ cursor: "pointer" }}
-                            onClick={() => console.log("Profile clicked")}
-                        />
-                    )}
+                            <Avatar
+                                alt={user.name || "Profile"}
+                                src={user.profilePicture || "/default-avatar.png"}
+                                sx={{ cursor: "pointer" }}
+                                onClick={() => console.log("Profile clicked")}
+                            />
+                        )}
                     </Box>
 
                     {/* Warranty Items */}
@@ -210,7 +208,7 @@ function HomePage(props) {
                         <Button
                             variant="outlined"
                             color="error"
-                            onClick={() => console.log("Logging Out")}
+                            onClick={handleLogout}
                         >
                             Logout
                         </Button>
