@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import CreateWarranty from "./pages/CreateWarranty";
+import WarrantyPage from "./pages/WarrantyPage";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/" element={<AuthPage />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/create" element={<CreateWarranty/>} />
+                <Route path="/:id" element={<WarrantyPage/>} />
             </Routes>
         </>
     );

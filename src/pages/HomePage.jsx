@@ -62,10 +62,7 @@ function HomePage(props) {
                 `${backend_uri}/warranty/warranties`,
                 {
                     withCredentials: true,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': token
-                    }
+                    headers: headers
                 }
             );
             setWarranties(response.data.warranties);
@@ -162,6 +159,7 @@ function HomePage(props) {
                                                 transition: "transform 0.3s ease-in-out",
                                             },
                                         }}
+                                        onClick={() => navigate(`/${warranty._id}`)}
                                     >
                                         <CardMedia
                                             component="img"
@@ -173,8 +171,20 @@ function HomePage(props) {
                                             <Typography variant="h6" fontWeight="bold">
                                                 {warranty.productName}
                                             </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                Purchase Date:{" "}
+                                            <Typography
+                                                variant="body2"
+                                                color="text.secondary"
+                                                sx={{ fontSize: "0.75rem" }}
+                                            >
+                                                Purchased on:{" "}
+                                                {new Date(warranty.purchaseDate).toLocaleDateString()}
+                                            </Typography>
+                                            <Typography
+                                                variant="body2"
+                                                color="text.secondary"
+                                                sx={{ fontSize: "0.75rem" }}
+                                            >
+                                                Warranty valid until:{" "}
                                                 {new Date(warranty.purchaseDate).toLocaleDateString()}
                                             </Typography>
                                         </CardContent>
