@@ -11,8 +11,12 @@ import {
     Grid,
     Button,
     useTheme,
-    useMediaQuery
+    useMediaQuery,
+    IconButton,
+    Menu,
+    MenuItem
 } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 function WarrantyPage() {
@@ -23,6 +27,7 @@ function WarrantyPage() {
     const [searchParams] = useSearchParams();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+    const [anchorEl, setAnchorEl] = useState(null);
 
     useEffect(() => {
         if (searchParams.has('token')) {
@@ -54,6 +59,35 @@ function WarrantyPage() {
         }
     }
 
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const deleteWarranty = async () => {
+        try {
+            const response = await axios.delete(
+                `${backend_uri}/warranty/warranties/delete/${id}`,
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    }
+                }
+            );
+            if (response.status == 200) {
+                console.log("Warranty deleted successfully:", response.data);
+                navigate("/home");
+            }
+        } catch (error) {
+            console.error("Error deleting warranty:", error);
+        }
+    }
+
     return (
         <Box
             sx={{
@@ -65,17 +99,36 @@ function WarrantyPage() {
                 padding: 2,
             }}
         >
-            {warranty ? (
-                <Card
-                    sx={{
-                        maxWidth: isSmallScreen ? "90%" : 600,
-                        width: "100%",
-                        boxShadow: 4,
-                        borderRadius: 3,
-                        overflow: "hidden",
-                        backgroundColor: "white",
-                    }}
+            <Card
+                sx={{
+                    maxWidth: isSmallScreen ? "90%" : 600,
+                    width: "100%",
+                    boxShadow: 4,
+                    borderRadius: 3,
+                    overflow: "hidden",
+                    backgroundColor: "white",
+                    position: "relative", // For positioning the icon
+                }}
+            >
+                <IconButton
+                    sx={{ position: 'absolute', top: 16, right: 16 }}
+                    onClick={handleMenuOpen}
                 >
+                    <MenuIcon />
+                </IconButton>
+
+                <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                    keepMounted
+                >
+                    <MenuItem onClick={() => { /* Save */ }}>Save</MenuItem>
+                    <MenuItem onClick={updateWarranty}>Edit</MenuItem>
+                    <MenuItem onClick={deleteWarranty}>Delete</MenuItem>
+                </Menu>
+
+                {warranty ? (
                     <CardContent>
                         <Typography
                             variant="h4"
@@ -152,27 +205,28 @@ function WarrantyPage() {
                             }}
                         />
                     </CardContent>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            padding: 2,
-                        }}
+                ) : (
+                    <Typography variant="h5" color="text.secondary">
+                        Loading warranty details...
+                    </Typography>
+                )}
+
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        padding: 2,
+                    }}
+                >
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => navigate(-1)}
                     >
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            onClick={() => navigate(-1)}
-                        >
-                            Back
-                        </Button>
-                    </Box>
-                </Card>
-            ) : (
-                <Typography variant="h5" color="text.secondary">
-                    Loading warranty details...
-                </Typography>
-            )}
+                        Back
+                    </Button>
+                </Box>
+            </Card>
         </Box>
     )
 };
