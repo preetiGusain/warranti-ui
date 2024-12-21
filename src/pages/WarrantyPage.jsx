@@ -9,17 +9,14 @@ import {
     CardContent,
     CardMedia,
     Grid,
-    Button,
     useTheme,
     useMediaQuery,
     IconButton,
-    Menu,
-    MenuItem,
     Stack
 } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 function WarrantyPage() {
@@ -30,16 +27,19 @@ function WarrantyPage() {
     const [searchParams] = useSearchParams();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [isEditMode, setIsEditMode] = useState(false);
 
     useEffect(() => {
-        if (searchParams.has('token')) {
-            setToken(searchParams.get('token'));
-            localStorage.setItem('token', searchParams.get('token'));
-        } else {
-            setToken(localStorage.getItem('token'));
+        if (token === null) {
+            if (searchParams.has('token')) {
+                setToken(searchParams.get('token'));
+                localStorage.setItem('token', searchParams.get('token'));
+            } else {
+                setToken(localStorage.getItem('token'));
+            }
         }
+    }, []);
+
+    useEffect(() => {
         if (token) {
             getWarranty();
         }
@@ -84,47 +84,6 @@ function WarrantyPage() {
         }
     }
 
-    const updateWarranty = async () => {
-        const warrantyData = {
-            productName: warranty.productName,
-            purchaseDate: warranty.purchaseDate,
-            warrantyDuration: warranty.warrantyDuration,
-            warrantyDurationUnit: warranty.warrantyDurationUnit,
-            productPhoto: warranty.productPhoto,
-            receiptPhoto: warranty.receiptPhoto,
-            warrantyCardPhoto: warranty.warrantyCardPhoto,
-        };
-
-        try {
-            const response = await axios.put(
-                `${backend_uri}/warranty/${id}`,
-                warrantyData,
-                {
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'Authorization': token
-                    }
-                }
-            );
-            if (response.status == 200) {
-                console.log("Warranty edited successfully:", response.data);
-            }
-        } catch (error) {
-            console.error("Error editing warranty:", error);
-        }
-    }
-
-    const handleEditClick = () => {
-        setIsEditMode(true);
-    };
-
-    const handleSaveClick = async () => {
-        //Save the updated warranty
-        await updateWarranty();
-        setIsEditMode(false);
-    }
-
     return (
         <Box
             sx={{
@@ -150,7 +109,7 @@ function WarrantyPage() {
                 <Stack sx={{ position: 'absolute', top: 16, right: 16 }} direction="row" spacing={1}>
                     <IconButton
                         color="secondary"
-                        onClick={handleEditClick}
+                        onClick={() => navigate(`/edit/${id}`)}
                     >
                         <EditIcon />
                     </IconButton>
@@ -161,6 +120,14 @@ function WarrantyPage() {
                         <DeleteIcon />
                     </IconButton>
                 </Stack>
+                <Stack sx={{ position: 'absolute', top: 16, left: 16 }} direction="row" spacing={1}>
+                <IconButton
+                        color="secondary"
+                        onClick={() => navigate(-1)}
+                    >
+                        <ArrowBackIcon />
+                    </IconButton>
+                </Stack>
 
                 {warranty ? (
                     <CardContent>
@@ -168,7 +135,7 @@ function WarrantyPage() {
                             variant="h4"
                             fontWeight="bold"
                             gutterBottom
-                            textAlign="start"
+                            textAlign="space-between"
                         >
                             {warranty.productName}
                         </Typography>
@@ -177,33 +144,17 @@ function WarrantyPage() {
                                 <Typography variant="body1" fontWeight="bold">
                                     Purchase Date:
                                 </Typography>
-                                {isEditMode ? (
-                                    <input
-                                        type="date"
-                                        value={warranty.purchaseDate}
-                                        onChange={(e) => setWarranty({ ...warranty, purchaseDate: e.target.value })}
-                                    />
-                                ) : (
-                                    <Typography variant="body2">
-                                        {new Date(warranty.purchaseDate).toLocaleDateString()}
-                                    </Typography>
-                                )}
+                                <Typography variant="body2">
+                                    {new Date(warranty.purchaseDate).toLocaleDateString()}
+                                </Typography>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <Typography variant="body1" fontWeight="bold">
                                     Warranty Duration:
                                 </Typography>
-                                {isEditMode ? (
-                                    <input
-                                        type="number"
-                                        value={warranty.warrantyDuration}
-                                        onChange={(e) => setWarranty({ ...warranty, warrantyDuration: e.target.value })}
-                                    />
-                                ) : (
-                                    <Typography variant="body2">
-                                        {warranty.warrantyDuration} {warranty.warrantyDurationUnit}
-                                    </Typography>
-                                )}
+                                <Typography variant="body2">
+                                    {warranty.warrantyDuration} {warranty.warrantyDurationUnit}
+                                </Typography>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <Typography variant="body1" fontWeight="bold">
@@ -268,13 +219,6 @@ function WarrantyPage() {
                         padding: 2,
                     }}
                 >
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={() => navigate(-1)}
-                    >
-                        Back
-                    </Button>
                 </Box>
             </Card>
         </Box>
