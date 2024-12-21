@@ -14,9 +14,12 @@ import {
     useMediaQuery,
     IconButton,
     Menu,
-    MenuItem
+    MenuItem,
+    Stack
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 function WarrantyPage() {
@@ -59,14 +62,6 @@ function WarrantyPage() {
             console.error("Error fetching warranty:", error);
         }
     }
-
-    const handleMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
 
     const deleteWarranty = async () => {
         try {
@@ -152,29 +147,20 @@ function WarrantyPage() {
                     position: "relative", // For positioning the icon
                 }}
             >
-                <IconButton
-                    sx={{ position: 'absolute', top: 16, right: 16 }}
-                    onClick={handleMenuOpen}
-                >
-                    <MenuIcon />
-                </IconButton>
-
-                <Menu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={handleMenuClose}
-                    keepMounted
-                >
-                    {isEditMode ? (
-                        //If edit mode is true, show the save option
-                        <MenuItem onClick={handleSaveClick}>Save</MenuItem>
-                    ) : (
-                        <MenuItem onClick={handleEditClick}>Edit</MenuItem>
-                    )
-
-                    }
-                    <MenuItem onClick={deleteWarranty}>Delete</MenuItem>
-                </Menu>
+                <Stack sx={{ position: 'absolute', top: 16, right: 16 }} direction="row" spacing={1}>
+                    <IconButton
+                        color="secondary"
+                        onClick={handleEditClick}
+                    >
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton
+                        color="primary"
+                        onClick={deleteWarranty}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </Stack>
 
                 {warranty ? (
                     <CardContent>
@@ -182,7 +168,7 @@ function WarrantyPage() {
                             variant="h4"
                             fontWeight="bold"
                             gutterBottom
-                            textAlign="center"
+                            textAlign="start"
                         >
                             {warranty.productName}
                         </Typography>
