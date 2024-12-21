@@ -28,6 +28,7 @@ function WarrantyPage() {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const [anchorEl, setAnchorEl] = useState(null);
+    const [isEditMode, setIsEditMode] = useState(false);
 
     useEffect(() => {
         if (searchParams.has('token')) {
@@ -44,7 +45,7 @@ function WarrantyPage() {
     const getWarranty = async () => {
         try {
             const response = await axios.get(
-                `${backend_uri}/warranty/warranties/${id}`,
+                `${backend_uri}/warranty/${id}`,
                 {
                     withCredentials: true,
                     headers: {
@@ -70,7 +71,7 @@ function WarrantyPage() {
     const deleteWarranty = async () => {
         try {
             const response = await axios.delete(
-                `${backend_uri}/warranty/warranties/delete/${id}`,
+                `${backend_uri}/warranty/${id}`,
                 {
                     withCredentials: true,
                     headers: {
@@ -86,6 +87,47 @@ function WarrantyPage() {
         } catch (error) {
             console.error("Error deleting warranty:", error);
         }
+    }
+
+    const updateWarranty = async () => {
+        const warrantyData = {
+            productName: warranty.productName,
+            purchaseDate: warranty.purchaseDate,
+            warrantyDuration: warranty.warrantyDuration,
+            warrantyDurationUnit: warranty.warrantyDurationUnit,
+            productPhoto: warranty.productPhoto,
+            receiptPhoto: warranty.receiptPhoto,
+            warrantyCardPhoto: warranty.warrantyCardPhoto,
+        };
+
+        try {
+            const response = await axios.put(
+                `${backend_uri}/warranty/${id}`,
+                warrantyData,
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': token
+                    }
+                }
+            );
+            if (response.status == 200) {
+                console.log("Warranty edited successfully:", response.data);
+            }
+        } catch (error) {
+            console.error("Error editing warranty:", error);
+        }
+    }
+
+    const handleEditClick = () => {
+        setIsEditMode(true);
+    };
+
+    const handleSaveClick = async () => {
+        //Save the updated warranty
+        await updateWarranty();
+        setIsEditMode(false);
     }
 
     return (
@@ -123,8 +165,14 @@ function WarrantyPage() {
                     onClose={handleMenuClose}
                     keepMounted
                 >
-                    <MenuItem onClick={() => { /* Save */ }}>Save</MenuItem>
-                    <MenuItem onClick={updateWarranty}>Edit</MenuItem>
+                    {isEditMode ? (
+                        //If edit mode is true, show the save option
+                        <MenuItem onClick={handleSaveClick}>Save</MenuItem>
+                    ) : (
+                        <MenuItem onClick={handleEditClick}>Edit</MenuItem>
+                    )
+
+                    }
                     <MenuItem onClick={deleteWarranty}>Delete</MenuItem>
                 </Menu>
 
@@ -143,17 +191,33 @@ function WarrantyPage() {
                                 <Typography variant="body1" fontWeight="bold">
                                     Purchase Date:
                                 </Typography>
-                                <Typography variant="body2">
-                                    {new Date(warranty.purchaseDate).toLocaleDateString()}
-                                </Typography>
+                                {isEditMode ? (
+                                    <input
+                                        type="date"
+                                        value={warranty.purchaseDate}
+                                        onChange={(e) => setWarranty({ ...warranty, purchaseDate: e.target.value })}
+                                    />
+                                ) : (
+                                    <Typography variant="body2">
+                                        {new Date(warranty.purchaseDate).toLocaleDateString()}
+                                    </Typography>
+                                )}
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <Typography variant="body1" fontWeight="bold">
                                     Warranty Duration:
                                 </Typography>
-                                <Typography variant="body2">
-                                    {warranty.warrantyDuration} {warranty.warrantyDurationUnit}
-                                </Typography>
+                                {isEditMode ? (
+                                    <input
+                                        type="number"
+                                        value={warranty.warrantyDuration}
+                                        onChange={(e) => setWarranty({ ...warranty, warrantyDuration: e.target.value })}
+                                    />
+                                ) : (
+                                    <Typography variant="body2">
+                                        {warranty.warrantyDuration} {warranty.warrantyDurationUnit}
+                                    </Typography>
+                                )}
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <Typography variant="body1" fontWeight="bold">

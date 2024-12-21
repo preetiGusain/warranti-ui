@@ -24,14 +24,21 @@ function HomePage(props) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (searchParams.has('token')) {
-            setToken(searchParams.get('token'));
-            localStorage.setItem('token', searchParams.get('token'));
-        } else {
-            setToken(localStorage.getItem('token'));
+        if(token===null) {
+            if (searchParams.has('token')) {
+                setToken(searchParams.get('token'));
+                localStorage.setItem('token', searchParams.get('token'));
+            } else {
+                setToken(localStorage.getItem('token'));
+            }
         }
-        fetchUser();
-        getWarranties();
+    }, []);
+
+    useEffect(() => {
+        if(token) {
+            fetchUser();
+            getWarranties();
+        }
     }, [token]);
 
     const headers = {
@@ -59,7 +66,7 @@ function HomePage(props) {
     const getWarranties = async () => {
         try {
             const response = await axios.get(
-                `${backend_uri}/warranty/warranties`,
+                `${backend_uri}/warranty/`,
                 {
                     withCredentials: true,
                     headers: headers

@@ -17,7 +17,6 @@ function App() {
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/create" element={<CreateWarranty/>} />
                 <Route path="/:id" element={<WarrantyPage/>} />
-                <Route path="/delete:id" element={<WarrantyPage/>} />
             </Routes>
         </>
     );
