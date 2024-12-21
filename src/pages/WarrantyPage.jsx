@@ -5,7 +5,6 @@ import { backend_uri } from "../constants";
 import {
     Box,
     Typography,
-    Card,
     CardContent,
     CardMedia,
     Grid,
@@ -16,8 +15,8 @@ import {
 } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MainContainer from "../components/MainContainer";
+import NavigationBar from "../components/NavigationBar";
 
 
 function WarrantyPage() {
@@ -87,39 +86,24 @@ function WarrantyPage() {
 
     return (
         <MainContainer>
-            <Stack sx={{ position: 'absolute', top: 16, right: 16 }} direction="row" spacing={1}>
-                <IconButton
-                    color="secondary"
-                    onClick={() => navigate(`/edit/${id}`)}
-                >
-                    <EditIcon />
-                </IconButton>
-                <IconButton
-                    color="primary"
-                    onClick={deleteWarranty}
-                >
-                    <DeleteIcon />
-                </IconButton>
-            </Stack>
-            <Stack sx={{ position: 'absolute', top: 16, left: 16 }} direction="row" spacing={1}>
-                <IconButton
-                    color="secondary"
-                    onClick={() => navigate(-1)}
-                >
-                    <ArrowBackIcon />
-                </IconButton>
-            </Stack>
+            <NavigationBar title = {warranty?.productName}
+                rightElem={<Stack direction="row" spacing={1}>
+                    <IconButton
+                        color="secondary"
+                        onClick={() => navigate(`/edit/${id}`)}
+                    >
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton
+                        color="primary"
+                        onClick={deleteWarranty}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </Stack>} />
 
             {warranty ? (
                 <CardContent>
-                    <Typography
-                        variant="h4"
-                        fontWeight="bold"
-                        gutterBottom
-                        textAlign="space-between"
-                    >
-                        {warranty.productName}
-                    </Typography>
                     <Grid container spacing={2} sx={{ marginBottom: 2 }}>
                         <Grid item xs={12} sm={6}>
                             <Typography variant="body1" fontWeight="bold">

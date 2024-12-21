@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, ProgressBar } from "react-bootstrap";
+import AppBar from '@mui/material/AppBar';
 import axios from "axios";
 import { backend_uri } from "../constants";
 import { useSearchParams } from "react-router-dom";
 import './CreateWarranty.css';
 import MainContainer from "../components/MainContainer";
+import NavigationBar from "../components/NavigationBar";
 
 
 function CreateWarranty() {
@@ -112,6 +114,7 @@ function CreateWarranty() {
 
     return (
         <MainContainer>
+            <NavigationBar title={"Create Warranty"} />
             <ProgressBar animated variant="info" now={(step * 100) / 3} />
 
             <Form onSubmit={handleSubmit}>
