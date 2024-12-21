@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, ProgressBar } from "react-bootstrap";
-import { useSearchParams } from "react-router-dom";
-import './CreateWarranty.css';
 import MainContainer from "../components/MainContainer";
 import NavigationBar from "../components/NavigationBar";
 import CancelIcon from '@mui/icons-material/Cancel';
 import { IconButton } from "@mui/material";
 import { createWarranty } from "../utils/warrantyService";
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
 
 function CreateWarranty() {
     const navigate = useNavigate();
@@ -22,6 +25,7 @@ function CreateWarranty() {
         product: null
     });
     const [step, setStep] = useState(1);
+    const [open, setOpen] = React.useState(false);
 
 
     function handleInputChange(event) {
@@ -83,16 +87,64 @@ function CreateWarranty() {
         setStep(step + 1);
     }
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <MainContainer>
             <NavigationBar title={"Create"}
                 rightElem={
-                    <IconButton
-                        color="primary"
-                    >
-                        <CancelIcon />
-                    </IconButton>
+                    <>
+                        <Button variant="outlined" onClick={handleClickOpen}>
+                            <IconButton color="primary">
+                                <CancelIcon />
+                            </IconButton>
+                        </Button>
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogTitle id="alert-dialog-title">
+                                {"Discard new Warranty?"}
+                            </DialogTitle>
+                            <IconButton
+                                aria-label="close"
+                                onClick={handleClose}
+                                sx={(theme) => ({
+                                    position: 'absolute',
+                                    right: 8,
+                                    top: 8,
+                                    color: theme.palette.grey[500],
+                                })}
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    You will loose all the information entered for this Warranty
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose}>Keep Editing</Button>
+                                <Button
+                                    onClick={() => {
+                                        handleClose();
+                                        navigate("/home");
+                                    }}
+                                    autoFocus
+                                >
+                                    Discard warranty
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </>
                 }
             />
             <ProgressBar animated variant="info" now={(step * 100) / 3} />
