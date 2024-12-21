@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
     Box,
+    Button,
     Typography,
     CardContent,
     CardMedia,
@@ -16,6 +17,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import MainContainer from "../components/MainContainer";
 import NavigationBar from "../components/NavigationBar";
 import { deleteWarranty, getWarranty } from "../utils/warrantyService";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 function WarrantyPage() {
@@ -24,6 +31,7 @@ function WarrantyPage() {
     const [warranty, setWarranty] = useState(null);
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+    const [open, setOpen] = React.useState(false);
 
     useEffect(() => {
         getWarranty(id, setWarranty);
@@ -33,9 +41,17 @@ function WarrantyPage() {
         navigate("/home");
     }
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
         <MainContainer>
-            <NavigationBar title = {warranty?.productName}
+            <NavigationBar title={warranty?.productName}
                 rightElem={<Stack direction="row" spacing={1}>
                     <IconButton
                         color="secondary"
@@ -43,12 +59,44 @@ function WarrantyPage() {
                     >
                         <EditIcon />
                     </IconButton>
-                    <IconButton
-                        color="primary"
-                        onClick={() => deleteWarranty(id, deletedSuccessfully)}
+                    <Button variant="outlined" onClick={handleClickOpen}>
+                        <IconButton color="primary">
+                            <DeleteIcon />
+                        </IconButton>
+                    </Button>
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
                     >
-                        <DeleteIcon />
-                    </IconButton>
+                        <DialogTitle id="alert-dialog-title">
+                            {"Delete"}
+                        </DialogTitle>
+                        <IconButton
+                            aria-label="close"
+                            onClick={handleClose}
+                            sx={(theme) => ({
+                                position: 'absolute',
+                                right: 8,
+                                top: 8,
+                                color: theme.palette.grey[500],
+                            })}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                Are you sure you want to delete this item?
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>Cancel</Button>
+                            <Button onClick={() => deleteWarranty(id, deletedSuccessfully)} autoFocus>
+                                Delete
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </Stack>} />
 
             {warranty ? (
