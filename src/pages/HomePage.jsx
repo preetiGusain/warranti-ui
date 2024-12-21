@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
-import { backend_uri } from "../constants";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
     Grid,
     Typography,
     Avatar,
-    Button,
     Box,
     Card,
     CardMedia,
@@ -16,7 +13,7 @@ import {
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import MainContainer from "../components/MainContainer";
-
+import { fetchUser, getWarranties, logoutUser } from "../utils/warrantyService";
 
 function HomePage(props) {
     const navigate = useNavigate();
@@ -24,7 +21,6 @@ function HomePage(props) {
     const [token, setToken] = useState(null);
     const [warranties, setWarranties] = useState([]);
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (token === null) {
@@ -39,58 +35,19 @@ function HomePage(props) {
 
     useEffect(() => {
         if (token) {
-            fetchUser();
-            getWarranties();
+            fetchUser(setUser);
+            getWarranties(setWarranties);
         }
     }, [token]);
 
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': token,
-    }
-
-    const fetchUser = async () => {
-        try {
-            const response = await axios.get(
-                `${backend_uri}/user/profile`,
-                {
-                    withCredentials: true,
-                    headers: headers
-                }
-            );
-            setUser(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-            setLoading(false);
-        }
-    };
-
-    const getWarranties = async () => {
-        try {
-            const response = await axios.get(
-                `${backend_uri}/warranty/`,
-                {
-                    withCredentials: true,
-                    headers: headers
-                }
-            );
-            setWarranties(response.data.warranties);
-        } catch (error) {
-            console.error("Error fetching warranties:", error);
-        }
-    }
+    
 
     const notifyLoading = () => {
         toast.info("Logging Out Successfull..");
     };
 
     const handleLogout = () => {
-        axios
-            .get(`${backend_uri}/auth/logout`, {
-                withCredentials: true,
-                headers: headers
-            })
+        logoutUser
             .then(() => {
                 navigate("/");
                 setUser(null);

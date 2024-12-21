@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import axios from "axios";
-import { backend_uri } from "../constants";
+import { useNavigate, useParams } from "react-router-dom";
 import {
     Box,
     Typography,
@@ -17,71 +15,22 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import MainContainer from "../components/MainContainer";
 import NavigationBar from "../components/NavigationBar";
+import { deleteWarranty, getWarranty } from "../utils/warrantyService";
 
 
 function WarrantyPage() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [warranty, setWarranty] = useState(null);
-    const [token, setToken] = useState(null);
-    const [searchParams] = useSearchParams();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
     useEffect(() => {
-        if (token === null) {
-            if (searchParams.has('token')) {
-                setToken(searchParams.get('token'));
-                localStorage.setItem('token', searchParams.get('token'));
-            } else {
-                setToken(localStorage.getItem('token'));
-            }
-        }
+        getWarranty(id, setWarranty);
     }, []);
 
-    useEffect(() => {
-        if (token) {
-            getWarranty();
-        }
-    }, [token]);
-
-    const getWarranty = async () => {
-        try {
-            const response = await axios.get(
-                `${backend_uri}/warranty/${id}`,
-                {
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': token
-                    }
-                }
-            );
-            setWarranty(response.data.warranty);
-        } catch (error) {
-            console.error("Error fetching warranty:", error);
-        }
-    }
-
-    const deleteWarranty = async () => {
-        try {
-            const response = await axios.delete(
-                `${backend_uri}/warranty/${id}`,
-                {
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': token
-                    }
-                }
-            );
-            if (response.status == 200) {
-                console.log("Warranty deleted successfully:", response.data);
-                navigate("/home");
-            }
-        } catch (error) {
-            console.error("Error deleting warranty:", error);
-        }
+    const deletedSuccessfully = (response) => {
+        navigate("/home");
     }
 
     return (
@@ -96,7 +45,7 @@ function WarrantyPage() {
                     </IconButton>
                     <IconButton
                         color="primary"
-                        onClick={deleteWarranty}
+                        onClick={() => deleteWarranty(id, deletedSuccessfully)}
                     >
                         <DeleteIcon />
                     </IconButton>

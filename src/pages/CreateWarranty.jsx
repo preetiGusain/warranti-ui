@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, ProgressBar } from "react-bootstrap";
-import AppBar from '@mui/material/AppBar';
-import axios from "axios";
-import { backend_uri } from "../constants";
 import { useSearchParams } from "react-router-dom";
 import './CreateWarranty.css';
 import MainContainer from "../components/MainContainer";
 import NavigationBar from "../components/NavigationBar";
+import CancelIcon from '@mui/icons-material/Cancel';
+import { IconButton } from "@mui/material";
+import { createWarranty } from "../utils/warrantyService";
 
 
 function CreateWarranty() {
@@ -21,19 +21,7 @@ function CreateWarranty() {
         receipt: null,
         product: null
     });
-    const [token, setToken] = useState(null);
-    const [searchParams] = useSearchParams();
     const [step, setStep] = useState(1);
-
-
-    useEffect(() => {
-        if (searchParams.has('token')) {
-            setToken(searchParams.get('token'));
-            localStorage.setItem('token', searchParams.get('token'));
-        } else {
-            setToken(localStorage.getItem('token'));
-        }
-    }, []);
 
 
     function handleInputChange(event) {
@@ -59,6 +47,18 @@ function CreateWarranty() {
         }));
     }
 
+    function successSave(response) {
+        setFormData({
+            productName: "",
+            warrantyDuration: "",
+            warrantyDurationUnit: "",
+            purchaseDate: "",
+            warrantyCard: null,
+            receipt: null,
+            product: null
+        });
+        navigate("/home");
+    }
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -76,35 +76,7 @@ function CreateWarranty() {
         if (formData.receipt) warranty.append("receipt", formData.receipt);
         if (formData.product) warranty.append("product", formData.warranty);
 
-        try {
-            const headers = {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': token,
-            }
-            const response = await axios.post(
-                `${backend_uri}/warranty/create`,
-                formData,
-                { withCredentials: true, headers: headers }
-            );
-
-            setFormData({
-                productName: "",
-                warrantyDuration: "",
-                warrantyDurationUnit: "",
-                purchaseDate: "",
-                warrantyCard: null,
-                receipt: null,
-                product: null
-            })
-            alert("Warranty created successfully.");
-            if (response.status === 200) {
-                console.log("You are going to home page");
-                navigate("/home");
-            }
-        } catch (error) {
-            console.error("Error occurred while creating warranty", error);
-            alert("Failed to create warranty.");
-        }
+        await createWarranty(formData, successSave)
     }
 
     function goToNext() {
@@ -114,7 +86,15 @@ function CreateWarranty() {
 
     return (
         <MainContainer>
-            <NavigationBar title={"Create Warranty"} />
+            <NavigationBar title={"Create"}
+                rightElem={
+                    <IconButton
+                        color="primary"
+                    >
+                        <CancelIcon />
+                    </IconButton>
+                }
+            />
             <ProgressBar animated variant="info" now={(step * 100) / 3} />
 
             <Form onSubmit={handleSubmit}>
