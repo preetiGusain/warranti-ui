@@ -17,6 +17,7 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MainContainer from "../components/MainContainer";
 
 
 function WarrantyPage() {
@@ -85,143 +86,122 @@ function WarrantyPage() {
     }
 
     return (
-        <Box
-            sx={{
-                minHeight: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                background: "linear-gradient(to right, #dab8fc, #afc2ff)",
-                padding: 2,
-            }}
-        >
-            <Card
+        <MainContainer>
+            <Stack sx={{ position: 'absolute', top: 16, right: 16 }} direction="row" spacing={1}>
+                <IconButton
+                    color="secondary"
+                    onClick={() => navigate(`/edit/${id}`)}
+                >
+                    <EditIcon />
+                </IconButton>
+                <IconButton
+                    color="primary"
+                    onClick={deleteWarranty}
+                >
+                    <DeleteIcon />
+                </IconButton>
+            </Stack>
+            <Stack sx={{ position: 'absolute', top: 16, left: 16 }} direction="row" spacing={1}>
+                <IconButton
+                    color="secondary"
+                    onClick={() => navigate(-1)}
+                >
+                    <ArrowBackIcon />
+                </IconButton>
+            </Stack>
+
+            {warranty ? (
+                <CardContent>
+                    <Typography
+                        variant="h4"
+                        fontWeight="bold"
+                        gutterBottom
+                        textAlign="space-between"
+                    >
+                        {warranty.productName}
+                    </Typography>
+                    <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+                        <Grid item xs={12} sm={6}>
+                            <Typography variant="body1" fontWeight="bold">
+                                Purchase Date:
+                            </Typography>
+                            <Typography variant="body2">
+                                {new Date(warranty.purchaseDate).toLocaleDateString()}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography variant="body1" fontWeight="bold">
+                                Warranty Duration:
+                            </Typography>
+                            <Typography variant="body2">
+                                {warranty.warrantyDuration} {warranty.warrantyDurationUnit}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography variant="body1" fontWeight="bold">
+                                Status:
+                            </Typography>
+                            <Typography variant="body2">{warranty.status}</Typography>
+                        </Grid>
+                    </Grid>
+                    <Typography variant="body1" fontWeight="bold">
+                        Product:
+                    </Typography>
+                    <CardMedia
+                        component="img"
+                        image={warranty.productPhoto || "No image"}
+                        sx={{
+                            marginBottom: 2,
+                            borderRadius: 2,
+                            maxWidth: isSmallScreen ? "75" : "100px",
+                            maxHeight: "100px",
+                            objectFit: "cover"
+                        }}
+                    />
+                    <Typography variant="body1" fontWeight="bold">
+                        Receipt:
+                    </Typography>
+                    <CardMedia
+                        component="img"
+                        image={warranty.receiptPhoto || "No image"}
+                        sx={{
+                            marginBottom: 2,
+                            borderRadius: 2,
+                            maxWidth: isSmallScreen ? "75px" : "100px",
+                            maxHeight: "100px",
+                            objectFit: "cover"
+                        }}
+                    />
+                    <Typography variant="body1" fontWeight="bold">
+                        Warranty Card:
+                    </Typography>
+                    <CardMedia
+                        component="img"
+                        image={warranty.warrantyCardPhoto || "No image"}
+                        sx={{
+                            marginBottom: 2,
+                            borderRadius: 2,
+                            maxWidth: isSmallScreen ? "75px" : "100px",
+                            maxHeight: "100px",
+                            objectFit: "cover"
+                        }}
+                    />
+                </CardContent>
+            ) : (
+                <Typography variant="h5" color="text.secondary">
+                    Loading warranty details...
+                </Typography>
+            )}
+
+            <Box
                 sx={{
-                    maxWidth: isSmallScreen ? "90%" : 600,
-                    width: "100%",
-                    boxShadow: 4,
-                    borderRadius: 3,
-                    overflow: "hidden",
-                    backgroundColor: "white",
-                    position: "relative", // For positioning the icon
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: 2,
                 }}
             >
-                <Stack sx={{ position: 'absolute', top: 16, right: 16 }} direction="row" spacing={1}>
-                    <IconButton
-                        color="secondary"
-                        onClick={() => navigate(`/edit/${id}`)}
-                    >
-                        <EditIcon />
-                    </IconButton>
-                    <IconButton
-                        color="primary"
-                        onClick={deleteWarranty}
-                    >
-                        <DeleteIcon />
-                    </IconButton>
-                </Stack>
-                <Stack sx={{ position: 'absolute', top: 16, left: 16 }} direction="row" spacing={1}>
-                <IconButton
-                        color="secondary"
-                        onClick={() => navigate(-1)}
-                    >
-                        <ArrowBackIcon />
-                    </IconButton>
-                </Stack>
-
-                {warranty ? (
-                    <CardContent>
-                        <Typography
-                            variant="h4"
-                            fontWeight="bold"
-                            gutterBottom
-                            textAlign="space-between"
-                        >
-                            {warranty.productName}
-                        </Typography>
-                        <Grid container spacing={2} sx={{ marginBottom: 2 }}>
-                            <Grid item xs={12} sm={6}>
-                                <Typography variant="body1" fontWeight="bold">
-                                    Purchase Date:
-                                </Typography>
-                                <Typography variant="body2">
-                                    {new Date(warranty.purchaseDate).toLocaleDateString()}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Typography variant="body1" fontWeight="bold">
-                                    Warranty Duration:
-                                </Typography>
-                                <Typography variant="body2">
-                                    {warranty.warrantyDuration} {warranty.warrantyDurationUnit}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Typography variant="body1" fontWeight="bold">
-                                    Status:
-                                </Typography>
-                                <Typography variant="body2">{warranty.status}</Typography>
-                            </Grid>
-                        </Grid>
-                        <Typography variant="body1" fontWeight="bold">
-                            Product:
-                        </Typography>
-                        <CardMedia
-                            component="img"
-                            image={warranty.productPhoto || "No image"}
-                            sx={{
-                                marginBottom: 2,
-                                borderRadius: 2,
-                                maxWidth: isSmallScreen ? "75" : "100px",
-                                maxHeight: "100px",
-                                objectFit: "cover"
-                            }}
-                        />
-                        <Typography variant="body1" fontWeight="bold">
-                            Receipt:
-                        </Typography>
-                        <CardMedia
-                            component="img"
-                            image={warranty.receiptPhoto || "No image"}
-                            sx={{
-                                marginBottom: 2,
-                                borderRadius: 2,
-                                maxWidth: isSmallScreen ? "75px" : "100px",
-                                maxHeight: "100px",
-                                objectFit: "cover"
-                            }}
-                        />
-                        <Typography variant="body1" fontWeight="bold">
-                            Warranty Card:
-                        </Typography>
-                        <CardMedia
-                            component="img"
-                            image={warranty.warrantyCardPhoto || "No image"}
-                            sx={{
-                                marginBottom: 2,
-                                borderRadius: 2,
-                                maxWidth: isSmallScreen ? "75px" : "100px",
-                                maxHeight: "100px",
-                                objectFit: "cover"
-                            }}
-                        />
-                    </CardContent>
-                ) : (
-                    <Typography variant="h5" color="text.secondary">
-                        Loading warranty details...
-                    </Typography>
-                )}
-
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        padding: 2,
-                    }}
-                >
-                </Box>
-            </Card>
-        </Box>
+            </Box>
+        </MainContainer>
     )
 };
 

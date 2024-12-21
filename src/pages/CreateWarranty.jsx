@@ -5,6 +5,7 @@ import axios from "axios";
 import { backend_uri } from "../constants";
 import { useSearchParams } from "react-router-dom";
 import './CreateWarranty.css';
+import MainContainer from "../components/MainContainer";
 
 
 function CreateWarranty() {
@@ -110,9 +111,7 @@ function CreateWarranty() {
 
 
     return (
-        <div className={`createContainer`}>
-            <h2 style={{ textAlign: "center", marginBottom: "20px", padding: "20px" }}>Create Warranty</h2>
-            {/* <h3 style={{ textAlign: "center", marginBottom: "20px" }}>Step {step} of 3</h3> */}
+        <MainContainer>
             <ProgressBar animated variant="info" now={(step * 100) / 3} />
 
             <Form onSubmit={handleSubmit}>
@@ -198,7 +197,7 @@ function CreateWarranty() {
                 </Button>}
 
             </Form>
-        </div>
+        </MainContainer>
     )
 }
 
