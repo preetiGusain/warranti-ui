@@ -59,7 +59,7 @@ const createWarranty = async (formData, successFunction) => {
             formData,
             { withCredentials: true, headers: headers }
         );
-        if (response.status == 200) {
+        if (response.status === 200) {
             console.log("Warranty created successfully:", response.data);
             successFunction(response.data);
         }
@@ -82,7 +82,7 @@ const deleteWarranty = async (id, successFunction) => {
                 headers: headers
             }
         );
-        if (response.status == 200) {
+        if (response.status === 200) {
             console.log("Warranty deleted successfully:", response.data);
             successFunction(response.data);
         }

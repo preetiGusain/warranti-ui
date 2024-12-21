@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Form, ProgressBar } from "react-bootstrap";
+import { MuiFileInput } from 'mui-file-input';
+import Button from '@mui/material/Button';
+import LinearProgress from '@mui/material/LinearProgress';
 import MainContainer from "../components/MainContainer";
 import NavigationBar from "../components/NavigationBar";
 import CancelIcon from '@mui/icons-material/Cancel';
-import { IconButton } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { createWarranty } from "../utils/warrantyService";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -12,6 +14,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
+import InputLabel from "@mui/material/InputLabel";
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 function CreateWarranty() {
     const navigate = useNavigate();
@@ -19,37 +26,13 @@ function CreateWarranty() {
         productName: "",
         warrantyDuration: "",
         warrantyDurationUnit: "Month",
-        purchaseDate: "",
+        purchaseDate: null,
         warrantyCard: null,
         receipt: null,
         product: null
     });
     const [step, setStep] = useState(1);
     const [open, setOpen] = React.useState(false);
-
-
-    function handleInputChange(event) {
-        const { name, value, type } = event.target;
-        if (type === "select-one") {
-            setFormData((prevData) => ({
-                ...prevData,
-                [name]: value,
-            }));
-        } else {
-            setFormData((prevData) => ({
-                ...prevData,
-                [name]: value,
-            }));
-        }
-    }
-
-
-    function handleFileChange(event, field) {
-        setFormData((prevData) => ({
-            ...prevData,
-            [field]: event.target.files[0],
-        }));
-    }
 
     function successSave(response) {
         setFormData({
@@ -100,7 +83,7 @@ function CreateWarranty() {
             <NavigationBar title={"Create"}
                 rightElem={
                     <>
-                        <Button variant="outlined" onClick={handleClickOpen}>
+                        <Button onClick={handleClickOpen}>
                             <IconButton color="primary">
                                 <CancelIcon />
                             </IconButton>
@@ -147,91 +130,101 @@ function CreateWarranty() {
                     </>
                 }
             />
-            <ProgressBar animated variant="info" now={(step * 100) / 3} />
+            <LinearProgress variant="determinate" value={(step * 100) / 3} />
+            {step === 1 && <>
+                <TextField
+                    required
+                    id="product"
+                    label="Product Name"
+                    value={formData.productName}
+                    onChange={(event) => {
+                        setFormData({ ...formData, productName: event.target.value });
+                    }}
+                />
+                <MuiFileInput
+                    value={formData.product} onChange={(newValue) => {
+                        setFormData({ ...formData, product: newValue });
+                    }}
+                    placeholder="Insert product photo"
+                    clearIconButtonProps={{
+                        children: <CloseIcon fontSize="small" />
+                    }}
+                    InputProps={{
+                        startAdornment: <AttachFileIcon />
+                    }}
+                />
+            </>
+            }
 
-            <Form onSubmit={handleSubmit}>
-
-                {step === 1 && <><Form.Group controlId="productName" style={{ marginBottom: "15px" }}>
-                    <Form.Label>Product Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="productName"
-                        value={formData.productName}
-                        onChange={handleInputChange}
-                        placeholder="Enter product name"
-                    />
-                </Form.Group>
-                    <Form.Group controlId="product" style={{ marginBottom: "15px" }}>
-                        <Form.Label>Upload Product Image</Form.Label>
-                        <Form.Control
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => handleFileChange(e, "product")}
-                        />
-                    </Form.Group></>}
-
-                {step === 2 && <><Form.Group controlId="purchaseDate" style={{ marginBottom: "15px" }}>
-                    <Form.Label>Purchase Date</Form.Label>
-                    <Form.Control
-                        type="date"
-                        name="purchaseDate"
-                        value={formData.purchaseDate}
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                    <Form.Group controlId="receipt" style={{ marginBottom: "15px" }}>
-                        <Form.Label>Upload Receipt</Form.Label>
-                        <Form.Control
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => handleFileChange(e, "receipt")}
-                        />
-                    </Form.Group></>}
+            {step === 2 && <>
+                <DatePicker
+                    label="Purchase Date"
+                    value={formData.purchaseDate}
+                    onChange={(newValue) => setFormData({ ...formData, purchaseDate: newValue})}
+                />
+                <MuiFileInput
+                    value={formData.receipt} onChange={(newValue) => {
+                        setFormData({ ...formData, receipt: newValue });
+                    }}
+                    placeholder="Insert receipt photo"
+                    clearIconButtonProps={{
+                        children: <CloseIcon fontSize="small" />
+                    }}
+                    InputProps={{
+                        startAdornment: <AttachFileIcon />
+                    }}
+                />
+            </>}
 
 
-                {step === 3 && <><Form.Group controlId="warrantyDuration" style={{ marginBottom: "15px" }}>
-                    <Form.Label>Warranty Duration</Form.Label>
-                    <Form.Control
-                        type="number"
-                        name="warrantyDuration"
-                        value={formData.warrantyDuration}
-                        onChange={handleInputChange}
-                        placeholder="Enter warranty duration"
-                    />
-                </Form.Group>
-
-                    <Form.Group controlId="warrantyDurationUnit" style={{ marginBottom: "15px" }}>
-                        <Form.Label>Warranty Duration Unit</Form.Label>
-                        <Form.Control as="select"
-                            name="warrantyDurationUnit"
-                            value={formData.warrantyDurationUnit}
-                            onChange={handleInputChange}>
-                            <option value="Month">Month</option>
-                            <option value="Year">Year</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="warrantyCard" style={{ marginBottom: "15px" }}>
-                        <Form.Label>Upload Warranty Card</Form.Label>
-                        <Form.Control
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => handleFileChange(e, "warrantyCard")}
-                        />
-                    </Form.Group></>}
-                {step === 3 && <Button
-                    variant="primary"
-                    type="submit"
-                    style={{ marginTop: "20px", width: "100%" }}
-                >Submit
-                </Button>}
-                {(step === 1 || step === 2) && <Button
-                    variant="primary"
-                    style={{ marginTop: "20px", width: "100%" }}
-                    onClick={goToNext}
-                >Next
-                </Button>}
-
-            </Form>
+            {step === 3 && <>
+                <TextField
+                    required
+                    id="warranty-duration"
+                    label="Warranty Duration"
+                    type="Number"
+                    value={formData.warrantyDuration}
+                    onChange={(event) => {
+                        setFormData({ ...formData, warrantyDuration: event.target.value });
+                    }}
+                />
+                <InputLabel id="warranty-duration-unit">Warranty Duration Unit</InputLabel>
+                <Select
+                    labelId="warranty-duration-unit"
+                    value={formData.warrantyDurationUnit}
+                    label="Unit"
+                    onChange={(event) => {
+                        setFormData({ ...formData, warrantyDurationUnit: event.target.value });
+                    }}
+                >
+                    <MenuItem value={"Month"}>Months</MenuItem>
+                    <MenuItem value={"Year"}>Years</MenuItem>
+                </Select>
+                <MuiFileInput
+                    value={formData.warrantyCard} onChange={(newValue) => {
+                        setFormData({ ...formData, warrantyCard: newValue });
+                    }}
+                    placeholder="Insert Warranty Card"
+                    clearIconButtonProps={{
+                        children: <CloseIcon fontSize="small" />
+                    }}
+                    InputProps={{
+                        startAdornment: <AttachFileIcon />
+                    }}
+                />
+            </>}
+            {step === 3 && <Button
+                variant="contained"
+                onClick={handleSubmit}
+                style={{ marginTop: "20px", width: "100%" }}
+            >Submit
+            </Button>}
+            {(step === 1 || step === 2) && <Button
+                variant="outlined"
+                style={{ marginTop: "20px", width: "100%" }}
+                onClick={goToNext}
+            >Next
+            </Button>}
         </MainContainer>
     )
 }
