@@ -13,6 +13,8 @@ import {
     CardMedia,
     CardContent
 } from "@mui/material";
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 
 
 function HomePage(props) {
@@ -24,7 +26,7 @@ function HomePage(props) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if(token===null) {
+        if (token === null) {
             if (searchParams.has('token')) {
                 setToken(searchParams.get('token'));
                 localStorage.setItem('token', searchParams.get('token'));
@@ -35,7 +37,7 @@ function HomePage(props) {
     }, []);
 
     useEffect(() => {
-        if(token) {
+        if (token) {
             fetchUser();
             getWarranties();
         }
@@ -207,28 +209,14 @@ function HomePage(props) {
                     <Box
                         sx={{
                             display: "flex",
-                            justifyContent: "space-between",
+                            justifyContent: "end",
                             marginTop: "auto",
                             paddingTop: "100px",
                         }}
                     >
-                        <Button
-                            variant="contained"
-                            sx={{
-                                backgroundColor: "rgb(122, 50, 199)",
-                                "&:hover": { backgroundColor: "rgba(122, 50, 199, 0.8)" },
-                            }}
-                            onClick={() => navigate("/create")}
-                        >
-                            Create
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            color="error"
-                            onClick={handleLogout}
-                        >
-                            Logout
-                        </Button>
+                        <Fab color="default" aria-label="add" onClick={() => navigate("/create")}>
+                            <AddIcon />
+                        </Fab>
                     </Box>
                 </Box>
             </Box>
