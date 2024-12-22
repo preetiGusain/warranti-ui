@@ -12,6 +12,7 @@ function MainContainer({ children }) {
                 justifyContent: "center",
                 alignItems: "center",
                 minHeight: "100vh",
+                maxHeight: "100vh",
                 background: "linear-gradient(to right, #dab8fc, #afc2ff)",
                 padding: "20px",
             }}
