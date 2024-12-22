@@ -2,23 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
     Typography,
-    Avatar,
     Card,
     CardMedia,
-    CardContent
+    CardContent,
+    CircularProgress
 } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import MainContainer from "../components/MainContainer";
-import { fetchUser, getWarranties } from "../utils/warrantyService";
+import { getWarranties } from "../utils/warrantyService";
+import ProfileImage from "../components/ProfileImage";
 
 function HomePage() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const [token, setToken] = useState(null);
     const [warranties, setWarranties] = useState([]);
-    const [user, setUser] = useState(null);
+    const [loadingWarranties, setLoadingWarranties] = useState(true);
 
     useEffect(() => {
         if (token === null) {
@@ -33,8 +34,7 @@ function HomePage() {
 
     useEffect(() => {
         if (token) {
-            fetchUser(setUser);
-            getWarranties(setWarranties);
+            getWarranties(setLoadingWarranties, setWarranties);
         }
     }, [token]);
 
@@ -49,24 +49,18 @@ function HomePage() {
                     </Grid>
                     <Grid size={2}>
                         {/* Profile Icon */}
-                        {user && (
-                            <Avatar
-                                alt={user.name || "Profile"}
-                                src={user.profilePicture || "/default-avatar.png"}
-                                sx={{ cursor: "pointer" }}
-                                onClick={() => console.log("Profile clicked")}
-                            />
-                        )}
+                        <ProfileImage />
                     </Grid>
                 </Grid>
                 {/* Warranty Items */}
-                <Grid item container spacing={2} sx={{
-                    marginTop: 2,
-                    maxHeight: "75vh",
-                    overflowY: "auto"
-                }}
+                <Grid item container spacing={2}
+                    sx={{
+                        marginTop: 2,
+                        maxHeight: "75vh",
+                        overflowY: "auto"
+                    }}
                     direction="column">
-                    {warranties.length > 0 ? (
+                    {warranties.length > 0 && (
                         warranties.map((warranty) => (
                             <Grid item xs={12} key={warranty._id}>
                                 <Card
@@ -111,7 +105,9 @@ function HomePage() {
                                 </Card>
                             </Grid>
                         ))
-                    ) : (
+                    )}
+                    {loadingWarranties && (<CircularProgress color="secondary" />)}
+                    {!loadingWarranties && warranties.length === 0 && (
                         <Typography variant="body1">No warranties found.</Typography>
                     )}
                 </Grid>

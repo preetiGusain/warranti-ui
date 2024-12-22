@@ -19,6 +19,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 function CreateWarranty() {
     const navigate = useNavigate();
@@ -32,7 +33,8 @@ function CreateWarranty() {
         product: null
     });
     const [step, setStep] = useState(1);
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [savingWarranty, setSavingWarranty] = useState(false);
 
     function successSave(response) {
         setFormData({
@@ -63,7 +65,7 @@ function CreateWarranty() {
         if (formData.receipt) warranty.append("receipt", formData.receipt);
         if (formData.product) warranty.append("product", formData.warranty);
 
-        await createWarranty(formData, successSave)
+        await createWarranty(formData, setSavingWarranty, successSave)
     }
 
     function goToNext() {
@@ -83,11 +85,9 @@ function CreateWarranty() {
             <NavigationBar title={"Create"}
                 rightElem={
                     <>
-                        <Button onClick={handleClickOpen}>
-                            <IconButton color="primary">
-                                <CancelIcon />
-                            </IconButton>
-                        </Button>
+                        <IconButton color="primary" onClick={handleClickOpen} disabled={savingWarranty}>
+                            <CancelIcon />
+                        </IconButton>
                         <Dialog
                             open={open}
                             onClose={handleClose}
@@ -137,12 +137,15 @@ function CreateWarranty() {
                     id="product"
                     label="Product Name"
                     value={formData.productName}
+                    disabled={savingWarranty}
                     onChange={(event) => {
                         setFormData({ ...formData, productName: event.target.value });
                     }}
                 />
                 <MuiFileInput
-                    value={formData.product} onChange={(newValue) => {
+                    value={formData.product}
+                    disabled={savingWarranty}
+                    onChange={(newValue) => {
                         setFormData({ ...formData, product: newValue });
                     }}
                     placeholder="Insert product photo"
@@ -160,10 +163,13 @@ function CreateWarranty() {
                 <DatePicker
                     label="Purchase Date"
                     value={formData.purchaseDate}
-                    onChange={(newValue) => setFormData({ ...formData, purchaseDate: newValue})}
+                    disabled={savingWarranty}
+                    onChange={(newValue) => setFormData({ ...formData, purchaseDate: newValue })}
                 />
                 <MuiFileInput
-                    value={formData.receipt} onChange={(newValue) => {
+                    value={formData.receipt}
+                    disabled={savingWarranty}
+                    onChange={(newValue) => {
                         setFormData({ ...formData, receipt: newValue });
                     }}
                     placeholder="Insert receipt photo"
@@ -184,6 +190,7 @@ function CreateWarranty() {
                     label="Warranty Duration"
                     type="Number"
                     value={formData.warrantyDuration}
+                    disabled={savingWarranty}
                     onChange={(event) => {
                         setFormData({ ...formData, warrantyDuration: event.target.value });
                     }}
@@ -193,6 +200,7 @@ function CreateWarranty() {
                     labelId="warranty-duration-unit"
                     value={formData.warrantyDurationUnit}
                     label="Unit"
+                    disabled={savingWarranty}
                     onChange={(event) => {
                         setFormData({ ...formData, warrantyDurationUnit: event.target.value });
                     }}
@@ -201,7 +209,9 @@ function CreateWarranty() {
                     <MenuItem value={"Year"}>Years</MenuItem>
                 </Select>
                 <MuiFileInput
-                    value={formData.warrantyCard} onChange={(newValue) => {
+                    value={formData.warrantyCard}
+                    disabled={savingWarranty}
+                    onChange={(newValue) => {
                         setFormData({ ...formData, warrantyCard: newValue });
                     }}
                     placeholder="Insert Warranty Card"
@@ -213,14 +223,17 @@ function CreateWarranty() {
                     }}
                 />
             </>}
-            {step === 3 && <Button
+            {step === 3 && <LoadingButton
                 variant="contained"
                 onClick={handleSubmit}
+                loading={savingWarranty}
+                loadingPosition="end"
                 style={{ marginTop: "20px", width: "100%" }}
             >Submit
-            </Button>}
+            </LoadingButton>}
             {(step === 1 || step === 2) && <Button
                 variant="outlined"
+                disabled={savingWarranty}
                 style={{ marginTop: "20px", width: "100%" }}
                 onClick={goToNext}
             >Next

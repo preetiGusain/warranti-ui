@@ -6,8 +6,9 @@ const getToken = async () => {
     if (token) return token;
 }
 
-const getWarranty = async (id, setWarranty) => {
+const getWarranty = async (id, setLoading, sendSuccess, failureFunction) => {
     try {
+        setLoading(true);
         let token = await getToken();
         const headers = {
             'Content-Type': 'application/json',
@@ -20,14 +21,18 @@ const getWarranty = async (id, setWarranty) => {
                 headers: headers
             }
         );
-        setWarranty(response.data.warranty);
+        setLoading(false);
+        sendSuccess(response.data.warranty);
     } catch (error) {
+        setLoading(false);
+        failureFunction(error);
         console.error("Error fetching warranty:", error);
     }
 }
 
-const getWarranties = async (setWarranties) => {
+const getWarranties = async (setLoading, sendSuccess) => {
     try {
+        setLoading(true);
         let token = await getToken();
         const headers = {
             'Content-Type': 'application/json',
@@ -41,14 +46,17 @@ const getWarranties = async (setWarranties) => {
                 headers: headers
             }
         );
-        setWarranties(response.data.warranties);
+        setLoading(false);
+        sendSuccess(response.data.warranties);
     } catch (error) {
         console.error("Error fetching warranties:", error);
+        setLoading(false);
     }
 };
 
-const createWarranty = async (formData, successFunction) => {
+const createWarranty = async (formData, setLoading, successFunction) => {
     try {
+        setLoading(true);
         let token = await getToken();
         const headers = {
             'Content-Type': 'multipart/form-data',
@@ -59,12 +67,14 @@ const createWarranty = async (formData, successFunction) => {
             formData,
             { withCredentials: true, headers: headers }
         );
+        setLoading(false);
         if (response.status === 200) {
             console.log("Warranty created successfully:", response.data);
             successFunction(response.data);
         }
     } catch (error) {
         console.error("Error creating warranty:", error);
+        setLoading(false);
     }
 };
 
@@ -91,8 +101,9 @@ const deleteWarranty = async (id, successFunction) => {
     }
 };
 
-const fetchUser = async (setUser) => {
+const fetchUser = async (setLoading, successFunction) => {
     try {
+        setLoading(true);
         let token = await getToken();
         const headers = {
             'Content-Type': 'application/json',
@@ -106,9 +117,11 @@ const fetchUser = async (setUser) => {
                 headers: headers
             }
         );
-        setUser(response.data);
+        setLoading(false);
+        successFunction(response.data);
     } catch (error) {
         console.error("Error fetching user data:", error);
+        setLoading(false);
     }
 };
 

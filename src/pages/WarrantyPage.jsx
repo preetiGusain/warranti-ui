@@ -6,11 +6,12 @@ import {
     Typography,
     CardContent,
     CardMedia,
-    Grid,
     useTheme,
     useMediaQuery,
     IconButton,
-    Stack
+    Stack,
+    Grid2 as Grid,
+    CircularProgress
 } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -24,17 +25,17 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 
-
 function WarrantyPage() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [warranty, setWarranty] = useState(null);
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [loadingWarranty, setLoadingWarranty] = useState(true);
 
     useEffect(() => {
-        getWarranty(id, setWarranty);
+        getWarranty(id, setLoadingWarranty, setWarranty);
     }, []);
 
     const deletedSuccessfully = (response) => {
@@ -53,17 +54,18 @@ function WarrantyPage() {
         <MainContainer>
             <NavigationBar title={warranty?.productName}
                 rightElem={<Stack direction="row" spacing={1}>
-                    <IconButton
-                        color="secondary"
+                    <IconButton color="secondary"
                         onClick={() => navigate(`/edit/${id}`)}
+                        disabled={loadingWarranty}
                     >
                         <EditIcon />
                     </IconButton>
-                    <Button variant="outlined" onClick={handleClickOpen}>
-                        <IconButton color="primary">
-                            <DeleteIcon />
-                        </IconButton>
-                    </Button>
+                    <IconButton color="primary"
+                        onClick={handleClickOpen}
+                        disabled={loadingWarranty}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
                     <Dialog
                         open={open}
                         onClose={handleClose}
@@ -99,7 +101,7 @@ function WarrantyPage() {
                     </Dialog>
                 </Stack>} />
 
-            {warranty ? (
+            {warranty && (
                 <CardContent>
                     <Grid container spacing={2} sx={{ marginBottom: 2 }}>
                         <Grid item xs={12} sm={6}>
@@ -168,20 +170,8 @@ function WarrantyPage() {
                         }}
                     />
                 </CardContent>
-            ) : (
-                <Typography variant="h5" color="text.secondary">
-                    Loading warranty details...
-                </Typography>
             )}
-
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: 2,
-                }}
-            >
-            </Box>
+            {loadingWarranty && (<CircularProgress color="secondary" />)}
         </MainContainer>
     )
 };
