@@ -8,11 +8,6 @@ import NavigationBar from "../components/NavigationBar";
 import CancelIcon from '@mui/icons-material/Cancel';
 import { IconButton, TextField } from "@mui/material";
 import { createWarranty } from "../utils/warrantyService";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 import InputLabel from "@mui/material/InputLabel";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
@@ -20,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import LoadingButton from '@mui/lab/LoadingButton';
+import CancelCreateWarranty from "../components/dialogs/CancelCreateWarranty";
 
 function CreateWarranty() {
     const navigate = useNavigate();
@@ -88,45 +84,7 @@ function CreateWarranty() {
                         <IconButton color="primary" onClick={handleClickOpen} disabled={savingWarranty}>
                             <CancelIcon />
                         </IconButton>
-                        <Dialog
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="alert-dialog-title"
-                            aria-describedby="alert-dialog-description"
-                        >
-                            <DialogTitle id="alert-dialog-title">
-                                {"Discard new Warranty?"}
-                            </DialogTitle>
-                            <IconButton
-                                aria-label="close"
-                                onClick={handleClose}
-                                sx={(theme) => ({
-                                    position: 'absolute',
-                                    right: 8,
-                                    top: 8,
-                                    color: theme.palette.grey[500],
-                                })}
-                            >
-                                <CloseIcon />
-                            </IconButton>
-                            <DialogContent>
-                                <DialogContentText id="alert-dialog-description">
-                                    You will loose all the information entered for this Warranty
-                                </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={handleClose}>Keep Editing</Button>
-                                <Button
-                                    onClick={() => {
-                                        handleClose();
-                                        navigate("/home");
-                                    }}
-                                    autoFocus
-                                >
-                                    Discard warranty
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
+                        <CancelCreateWarranty open={open} handleClose={handleClose}/>
                     </>
                 }
             />
