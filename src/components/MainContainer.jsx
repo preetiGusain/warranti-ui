@@ -26,6 +26,7 @@ function MainContainer({ children }) {
                     width: "100%",
                     maxWidth: "450px",
                     minHeight: "80vh",
+                    maxHeight: "80vh",
                     textAlign: "center",
                     flexDirection: "column",
                     justifyContent: "flex-start",
