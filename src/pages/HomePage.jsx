@@ -60,7 +60,12 @@ function HomePage() {
                     </Grid>
                 </Grid>
                 {/* Warranty Items */}
-                <Grid item container spacing={2} sx={{ marginTop: 2 }} direction="column">
+                <Grid item container spacing={2} sx={{
+                    marginTop: 2,
+                    maxHeight: "75vh",
+                    overflowY: "auto"
+                }}
+                    direction="column">
                     {warranties.length > 0 ? (
                         warranties.map((warranty) => (
                             <Grid item xs={12} key={warranty._id}>
@@ -72,7 +77,7 @@ function HomePage() {
                                         "&:hover": {
                                             transform: "scale(1.05)",
                                             transition: "transform 0.3s ease-in-out",
-                                        },
+                                        }
                                     }}
                                     onClick={() => navigate(`/${warranty._id}`)}
                                 >
@@ -114,10 +119,10 @@ function HomePage() {
                 {/* Footer Buttons */}
                 <Grid item
                     sx={{
-                        display: "flex",
-                        justifyContent: "end",
-                        marginTop: "auto",
-                        paddingTop: "100px",
+                        zIndex: 1000,
+                        bottom: 16,
+                        right: 16,
+                        position: "relative",
                     }}
                 >
                     <Fab color="default" aria-label="add" onClick={() => navigate("/create")}>
