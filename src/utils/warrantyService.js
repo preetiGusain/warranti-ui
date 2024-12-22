@@ -78,8 +78,9 @@ const createWarranty = async (formData, setLoading, successFunction) => {
     }
 };
 
-const deleteWarranty = async (id, successFunction) => {
+const deleteWarranty = async (id, setLoading, successFunction) => {
     try {
+        setLoading(true);
         let token = await getToken();
         const headers = {
             'Content-Type': 'application/json',
@@ -95,9 +96,11 @@ const deleteWarranty = async (id, successFunction) => {
         if (response.status === 200) {
             console.log("Warranty deleted successfully:", response.data);
             successFunction(response.data);
+            setLoading(false);
         }
     } catch (error) {
         console.error("Error deleting warranty:", error);
+        setLoading(false);
     }
 };
 

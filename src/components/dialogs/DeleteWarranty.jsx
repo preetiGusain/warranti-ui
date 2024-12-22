@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -10,8 +10,11 @@ import {
     Button,
     IconButton,
 } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
-function DeleteWarranty({open, id, handleClose, deletedSuccessfully}) {
+function DeleteWarranty({ open, id, handleClose, deletedSuccessfully }) {
+    const [deletingWarranty, setDeletingWarranty] = useState(false);
+
     return (
         <Dialog
             open={open}
@@ -25,6 +28,7 @@ function DeleteWarranty({open, id, handleClose, deletedSuccessfully}) {
             <IconButton
                 aria-label="close"
                 onClick={handleClose}
+                disabled={deletingWarranty}
                 sx={(theme) => ({
                     position: 'absolute',
                     right: 8,
@@ -40,10 +44,17 @@ function DeleteWarranty({open, id, handleClose, deletedSuccessfully}) {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={() => deleteWarranty(id, deletedSuccessfully)} autoFocus>
+                <Button onClick={handleClose}
+                    disabled={deletingWarranty}
+                >Cancel</Button>
+                <LoadingButton
+                    onClick={() => deleteWarranty(id, setDeletingWarranty, deletedSuccessfully)} autoFocus
+                    variant="contained"
+                    loading={deletingWarranty}
+                    loadingPosition="end"
+                >
                     Delete
-                </Button>
+                </LoadingButton>
             </DialogActions>
         </Dialog>
     )
