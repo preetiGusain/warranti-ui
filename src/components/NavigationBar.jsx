@@ -9,11 +9,15 @@ function NavigationBar({ title, rightElem }) {
     return (
         <Box
             sx={{
-                width: "100%"
+                width: "100%",
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: 1
             }}
         >
-            <Grid2 container direction="row" spacing={2}>
-                <Grid2 size={2}>
+            <Grid2 container direction="row" alignItems="center" spacing={2}>
+                <Grid2 item>
                     <IconButton
                         color="secondary"
                         onClick={() => navigate(-1)}
@@ -22,24 +26,30 @@ function NavigationBar({ title, rightElem }) {
                     </IconButton>
                 </Grid2>
 
-                <Grid2>
+                <Grid2 item xs>
                     <Typography
                         variant="h4"
                         fontWeight="bold"
-                        gutterBottom
-                        textAlign="space-between"
+                        noWrap
+                        sx={{
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            width: '100%',
+                            textAlign: 'center',
+                        }}
                     >
                         {title}
                     </Typography>
                 </Grid2>
 
                 {rightElem &&
-                    <Grid2 size={4}>
+                    <Grid2 item>
                         {rightElem}
                     </Grid2>}
             </Grid2>
         </Box>
-    )
+    );
 }
 
 export default NavigationBar;

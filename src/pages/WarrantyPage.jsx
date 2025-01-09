@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-    Box,
-    Button,
     Typography,
     CardContent,
     CardMedia,
@@ -17,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import MainContainer from "../components/MainContainer";
 import NavigationBar from "../components/NavigationBar";
-import { deleteWarranty, getWarranty } from "../utils/warrantyService";
+import { getWarranty } from "../utils/warrantyService";
 import DeleteWarranty from "../components/dialogs/DeleteWarranty";
 
 
@@ -82,6 +80,14 @@ function WarrantyPage() {
                             </Typography>
                             <Typography variant="body2">
                                 {warranty.warrantyDuration} {warranty.warrantyDurationUnit}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography variant="body1" fontWeight="bold">
+                                Warranty Expiry:
+                            </Typography>
+                            <Typography variant="body2">
+                                {warranty.warrantyEndDate}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={6}>
