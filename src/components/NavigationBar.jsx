@@ -13,41 +13,47 @@ function NavigationBar({ title, rightElem }) {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: 1
+                padding: "8px 16px",
+                backgroundColor: "white",
+                borderBottom: "1px solid #ddd",
+                position: "sticky",
+                top: 0,
+                zIndex: 10,
             }}
         >
-            <Grid2 container direction="row" alignItems="center" spacing={2}>
-                <Grid2 item>
-                    <IconButton
-                        color="secondary"
-                        onClick={() => navigate(-1)}
-                    >
-                        <ArrowBackIcon />
-                    </IconButton>
-                </Grid2>
+            {/* Back Button */}
+            <IconButton
+                color="secondary"
+                onClick={() => navigate(-1)}
+                sx={{ flexShrink: 0 }}
+            >
+                <ArrowBackIcon />
+            </IconButton>
 
-                <Grid2 item xs>
-                    <Typography
-                        variant="h4"
-                        fontWeight="bold"
-                        noWrap
-                        sx={{
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            width: '100%',
-                            textAlign: 'center',
-                        }}
-                    >
-                        {title}
-                    </Typography>
-                </Grid2>
+            {/* Title */}
+            <Typography
+                variant="h6"
+                fontWeight="bold"
+                noWrap
+                sx={{
+                    flexGrow: 1,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    textAlign: "center",
+                    marginLeft: "16px",
+                    marginRight: "16px",
+                }}
+            >
+                {title}
+            </Typography>
 
-                {rightElem &&
-                    <Grid2 item>
-                        {rightElem}
-                    </Grid2>}
-            </Grid2>
+            {/* Right Elements */}
+            {rightElem && (
+                <Box sx={{ flexShrink: 0, display: "flex", alignItems: "center" }}>
+                    {rightElem}
+                </Box>
+            )}
         </Box>
     );
 }
