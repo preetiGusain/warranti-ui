@@ -31,6 +31,7 @@ function MainContainer({ children }) {
                     textAlign: "center",
                     flexDirection: "column",
                     justifyContent: "flex-start",
+                    overflowY: "auto",
                 }}
             >
                 {children}

@@ -98,9 +98,20 @@ function HomePage() {
                                             color="text.secondary"
                                             sx={{ fontSize: "0.75rem" }}
                                         >
-                                            Warranty valid until:{" "}
-                                            {new Date(warranty.purchaseDate).toLocaleDateString()}
+                                            Warranty Expiry:{" "}
+                                            {new Date(warranty.warrantyEndDate).toLocaleDateString()}
                                         </Typography>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{
+                                                fontSize: "0.75rem",
+                                                color: warranty.status === "Active" ? "green" : "red",
+                                                fontWeight: "bold",
+                                            }}
+                                        >
+                                            Status: {warranty.status}
+                                        </Typography>
+
                                     </CardContent>
                                 </Card>
                             </Grid>

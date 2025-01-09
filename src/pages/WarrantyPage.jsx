@@ -46,26 +46,42 @@ function WarrantyPage() {
 
     return (
         <MainContainer>
-            <NavigationBar title={warranty?.productName}
-                rightElem={<Stack direction="row" spacing={1}>
-                    <IconButton color="secondary"
-                        onClick={() => navigate(`/edit/${id}`)}
-                        disabled={loadingWarranty}
-                    >
-                        <EditIcon />
-                    </IconButton>
-                    <IconButton color="primary"
-                        onClick={handleClickOpen}
-                        disabled={loadingWarranty}
-                    >
-                        <DeleteIcon />
-                    </IconButton>
-                    <DeleteWarranty open={open} handleClose={handleClose} id={id} deletedSuccessfully={deletedSuccessfully}/>
-                </Stack>} />
+            <NavigationBar
+                title={warranty?.productName || "Loading..."}
+                rightElem={
+                    <Stack direction="row" spacing={1}>
+                        <IconButton
+                            color="secondary"
+                            onClick={() => navigate(`/edit/${id}`)}
+                            disabled={loadingWarranty}
+                        >
+                            <EditIcon />
+                        </IconButton>
+                        <IconButton
+                            color="primary"
+                            onClick={handleClickOpen}
+                            disabled={loadingWarranty}
+                        >
+                            <DeleteIcon />
+                        </IconButton>
+                        <DeleteWarranty
+                            open={open}
+                            handleClose={handleClose}
+                            id={id}
+                            deletedSuccessfully={deletedSuccessfully}
+                        />
+                    </Stack>
+                }
+            />
 
-            {warranty && (
-                <CardContent>
-                    <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+            {warranty ? (
+                <CardContent
+                    sx={{
+                        overflowY: "auto",
+                        maxHeight: "calc(80vh - 100px)",
+                    }}
+                >
+                    <Grid container spacing={2} wrap="wrap" sx={{ marginBottom: 2 }}>
                         <Grid item xs={12} sm={6}>
                             <Typography variant="body1" fontWeight="bold">
                                 Purchase Date:
@@ -87,14 +103,22 @@ function WarrantyPage() {
                                 Warranty Expiry:
                             </Typography>
                             <Typography variant="body2">
-                                {warranty.warrantyEndDate}
+                                {new Date(warranty.warrantyEndDate).toLocaleDateString()}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Typography variant="body1" fontWeight="bold">
                                 Status:
                             </Typography>
-                            <Typography variant="body2">{warranty.status}</Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{
+                                    color: warranty.status === "Active" ? "green" : "red",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                {warranty.status}
+                            </Typography>
                         </Grid>
                     </Grid>
                     <Typography variant="body1" fontWeight="bold">
@@ -102,13 +126,13 @@ function WarrantyPage() {
                     </Typography>
                     <CardMedia
                         component="img"
-                        image={warranty.productPhoto || "No image"}
+                        image={warranty.productPhoto || "/default-product.png"}
                         sx={{
                             marginBottom: 2,
                             borderRadius: 2,
-                            maxWidth: isSmallScreen ? "75" : "100px",
-                            maxHeight: "100px",
-                            objectFit: "cover"
+                            maxWidth: "100%",
+                            maxHeight: "150px",
+                            objectFit: "contain",
                         }}
                     />
                     <Typography variant="body1" fontWeight="bold">
@@ -116,13 +140,13 @@ function WarrantyPage() {
                     </Typography>
                     <CardMedia
                         component="img"
-                        image={warranty.receiptPhoto || "No image"}
+                        image={warranty.receiptPhoto || "/default-receipt.png"}
                         sx={{
                             marginBottom: 2,
                             borderRadius: 2,
-                            maxWidth: isSmallScreen ? "75px" : "100px",
-                            maxHeight: "100px",
-                            objectFit: "cover"
+                            maxWidth: "100%",
+                            maxHeight: "150px",
+                            objectFit: "contain",
                         }}
                     />
                     <Typography variant="body1" fontWeight="bold">
@@ -130,18 +154,21 @@ function WarrantyPage() {
                     </Typography>
                     <CardMedia
                         component="img"
-                        image={warranty.warrantyCardPhoto || "No image"}
+                        image={warranty.warrantyCardPhoto || "/default-warranty-card.png"}
                         sx={{
                             marginBottom: 2,
                             borderRadius: 2,
-                            maxWidth: isSmallScreen ? "75px" : "100px",
-                            maxHeight: "100px",
-                            objectFit: "cover"
+                            maxWidth: "100%",
+                            maxHeight: "150px",
+                            objectFit: "contain",
                         }}
                     />
                 </CardContent>
+            ) : loadingWarranty ? (
+                <CircularProgress color="secondary" />
+            ) : (
+                <Typography variant="body1">Warranty not found.</Typography>
             )}
-            {loadingWarranty && (<CircularProgress color="secondary" />)}
         </MainContainer>
     )
 };
