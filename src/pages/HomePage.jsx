@@ -98,8 +98,8 @@ function HomePage() {
                                             color="text.secondary"
                                             sx={{ fontSize: "0.75rem" }}
                                         >
-                                            Warranty Expiry:{" "}
-                                            {new Date(warranty.warrantyEndDate).toLocaleDateString()}
+                                            Warranty Duration:{" "}
+                                            {warranty.warrantyDuration}
                                         </Typography>
                                         <Typography
                                             variant="body2"

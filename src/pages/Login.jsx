@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { backend_uri } from "../constants";
+import './Login.css';
 
 function AuthPage() {
   const navigate = useNavigate();
