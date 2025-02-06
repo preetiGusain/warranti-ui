@@ -1,15 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.e7a9bc85.css",
-    "main.js": "/static/js/main.38447bb1.js",
+    "main.css": "/static/css/main.70bf226b.css",
+    "main.js": "/static/js/main.3299c879.js",
     "static/js/453.3b3fa17a.chunk.js": "/static/js/453.3b3fa17a.chunk.js",
+    "static/media/airfryer.png": "/static/media/airfryer.e6d1439238b5051bcd20.png",
+    "static/media/signin.png": "/static/media/signin.23a33a4ab8e5c16011d2.png",
+    "static/media/homescreen.png": "/static/media/homescreen.3fae59cd8edb3e11894d.png",
+    "static/media/warranty.png": "/static/media/warranty.cc74a25c3d089decc314.png",
+    "static/media/logo.png": "/static/media/logo.b519c6341dbc26389221.png",
+    "static/media/create.png": "/static/media/create.257118a0a5a74bb7d4e4.png",
     "index.html": "/index.html",
-    "main.e7a9bc85.css.map": "/static/css/main.e7a9bc85.css.map",
-    "main.38447bb1.js.map": "/static/js/main.38447bb1.js.map",
+    "main.70bf226b.css.map": "/static/css/main.70bf226b.css.map",
+    "main.3299c879.js.map": "/static/js/main.3299c879.js.map",
     "453.3b3fa17a.chunk.js.map": "/static/js/453.3b3fa17a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e7a9bc85.css",
-    "static/js/main.38447bb1.js"
+    "static/css/main.70bf226b.css",
+    "static/js/main.3299c879.js"
   ]
 }
