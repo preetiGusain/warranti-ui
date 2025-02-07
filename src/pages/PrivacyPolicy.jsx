@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
             style={{
                 maxHeight: '100vh',
                 overflowY: 'auto',
-                maxWidth: '100%'
+                maxWidth: '100%',
             }}
         >
             <button
@@ -21,10 +21,15 @@ const PrivacyPolicy = () => {
                 Go Back
             </button>
 
-            <h1 className={styles['privacy-policy-title']}>Privacy Policy</h1>
+            <h1 className={styles['privacy-policy-title']}
+                style={{
+                    padding: '20px',
+                    fontSize: '50px',
+                    justifySelf: 'center',
+                }}>Privacy Policy</h1>
             <p className={styles['last-updated']}>Last updated: February 06, 2025</p>
             <p className={styles['intro']}>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
-            <p className={styles['intro']}>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the <a href="https://www.freeprivacypolicy.com/free-privacy-policy-generator/" target="_blank">Free Privacy Policy Generator</a>.</p>
+            <p className={styles['intro']}>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.</p>
             <h2 className={styles['section-title']}>Interpretation and Definitions</h2>
             <h3 className={styles['subsection-title']}>Interpretation</h3>
             <p className={styles['definition-text']}>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
@@ -217,11 +222,55 @@ const PrivacyPolicy = () => {
             <p className={styles['definition-text']}>We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the "Last updated" date at the top of this Privacy Policy.</p>
             <p className={styles['definition-text']}>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
 
-            <h2 className={styles['section-title']}>Contact Us</h2>
-            <p className={styles['definition-text']}>If you have any questions about this Privacy Policy, You can contact us:</p>
-            <ul className={styles['contact-list']}>
-                <li className={styles['contact-item']}>By email: preetigusain9173@gmail.com</li>
+            <h2
+                className={styles['section-title']}
+                style={{
+                    textAlign: 'center',
+                    fontSize: '28px',
+                    fontWeight: 'bold',
+                    margin: '20px 0',
+                    color: '#2c3e50',
+                }}
+            >
+                📧 Contact Us
+            </h2>
+            <p
+                className={styles['definition-text']}
+                style={{
+                    textAlign: 'center',
+                    fontSize: '18px',
+                    margin: '10px 0 20px',
+                    color: '#7f8c8d',
+                }}
+            >
+                If you have any questions about this Privacy Policy, you can reach out to us:
+            </p>
+            <ul
+                className={styles['contact-list']}
+                style={{
+                    listStyle: 'none',
+                    padding: 0,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '10px',
+                }}
+            >
+                <li
+                    className={styles['contact-item']}
+                    style={{
+                        backgroundColor: '#ecf0f1',
+                        padding: '20px 20px',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        color: '#2c3e50',
+                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                    }}
+                >
+                    By email: <a href="mailto:preetigusain9173@gmail.com" style={{ color: '#3498db', textDecoration: 'none' }}>preetigusain9173@gmail.com</a>
+                </li>
             </ul>
+
         </div>
     );
 };

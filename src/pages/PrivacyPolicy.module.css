@@ -1,16 +1,15 @@
-/* PrivacyPolicy.module.css */
-
 /* Container Styles */
 .privacy-policy {
     padding: 20px;
     max-width: 900px;
-    margin: 0 auto;
+    margin: 0;
     font-family: 'Arial', sans-serif;
-    line-height: 1.6;
+    line-height: 1.8;
     color: #333;
     background-color: #f9f9f9;
     border-radius: 8px;
     overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Button Styles */
@@ -20,29 +19,40 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.home-button:hover {
+.go-back-button:hover {
     background-color: #45a049;
 }
 
 .privacy-policy-title {
-    font-size: 32px;
+    font-size: 45px;
     font-weight: bold;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .last-updated {
     font-size: 16px;
     color: #555;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .intro {
     font-size: 18px;
     margin-bottom: 20px;
-    line-height: 1.6;
+    line-height: 1.8;
     color: #333;
+    text-align: justify;
 }
 
 .section-title {
@@ -51,6 +61,8 @@
     margin-top: 30px;
     margin-bottom: 10px;
     text-align: left;
+    border-bottom: 2px solid #ccc;
+    padding: 10px 0px;
 }
 
 .subsection-title {
@@ -63,9 +75,10 @@
 
 .definition-text {
     font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 10px;
+    line-height: 1.8; 
+    margin-bottom: 15px;
     color: #333;
+    text-align: justify; 
 }
 
 .definition-list {
@@ -77,5 +90,28 @@
 }
 
 .definition-list li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.definition-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+    font-size: 18px;
+}
+
+/* Contact List Styles */
+.contact-list {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.contact-item {
     margin-bottom: 10px;
 }
