@@ -10,8 +10,8 @@ const ContactPage = () => {
                 <h2 style={{ color: '#333333' }}>Need Assistance?</h2>
                 <p style={{ color: '#555555', fontSize: '18px' }}>For any issues or inquiries, feel free to contact us:</p>
                 <p style={{ fontSize: '20px', fontWeight: 'bold', color: '#007bff' }}>
-                    <a href="mailto:preetigusain9173@gmail.com" style={{ textDecoration: 'none', color: '#007bff' }}>
-                        preetigusain9173@gmail.com
+                    <a href="mailto:support@warranti.in" style={{ textDecoration: 'none', color: '#007bff' }}>
+                    support@warranti.in
                     </a>
                 </p>
             </div>

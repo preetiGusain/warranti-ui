@@ -267,7 +267,7 @@ const PrivacyPolicy = () => {
                         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                     }}
                 >
-                    By email: <a href="mailto:preetigusain9173@gmail.com" style={{ color: '#3498db', textDecoration: 'none' }}>preetigusain9173@gmail.com</a>
+                    By email: <a href="mailto:support@warranti.in" style={{ color: '#3498db', textDecoration: 'none' }}>support@warranti.in</a>
                 </li>
             </ul>
 

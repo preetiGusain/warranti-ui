@@ -172,7 +172,7 @@ const LandingPage = () => {
                             </article>
                             <section className="contact">
                                 <h3>CONTACT</h3>
-                                <p>preetigusain9173@gmail.com</p>
+                                <p>support@warranti.in</p>
                             </section>
                             <nav className="menu">
                                 <h3>MENU</h3>
@@ -185,7 +185,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                     <div className="footer-bottom">
-                        <a href="/privacyPolicy" className="privacy-policy">Privacy Policy</a>
+                        <a href="/privacypolicy" className="privacy-policy">Privacy Policy</a>
                     </div>
                 </footer>
             </main>

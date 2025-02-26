@@ -23,7 +23,7 @@ function App() {
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/create" element={<CreateWarranty />} />
                 <Route path="/:id" element={<WarrantyPage />} />
-                <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+                <Route path="/privacypolicy" element={<PrivacyPolicy />} />
                 <Route path="/contact" element={<ContactPage />} />
             </Routes>
         </LocalizationProvider>
