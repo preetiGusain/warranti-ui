@@ -185,7 +185,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                     <div className="footer-bottom">
-                        <a href="/privacypolicy" className="privacy-policy">Privacy Policy</a>
+                        <a href="/privacy" className="privacy-policy">Privacy Policy</a>
                     </div>
                 </footer>
             </main>
