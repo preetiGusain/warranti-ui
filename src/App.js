@@ -9,7 +9,6 @@ import WarrantyPage from "./pages/WarrantyPage";
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import LandingPage from "./pages/Landing/Landing";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ContactPage from "./pages/Contact";
 
 function App() {
@@ -23,7 +22,6 @@ function App() {
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/create" element={<CreateWarranty />} />
                 <Route path="/:id" element={<WarrantyPage />} />
-                <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/contact" element={<ContactPage />} />
             </Routes>
         </LocalizationProvider>
