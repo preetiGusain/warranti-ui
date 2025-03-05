@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.0854c2fd.css",
-    "main.js": "/static/js/main.fd2ce75e.js",
+    "main.css": "/static/css/main.0f03f386.css",
+    "main.js": "/static/js/main.d7c7146e.js",
     "static/js/453.3b3fa17a.chunk.js": "/static/js/453.3b3fa17a.chunk.js",
     "static/media/airfryer.png": "/static/media/airfryer.e6d1439238b5051bcd20.png",
     "static/media/signin.png": "/static/media/signin.23a33a4ab8e5c16011d2.png",
@@ -10,12 +10,12 @@
     "static/media/logo.png": "/static/media/logo.b519c6341dbc26389221.png",
     "static/media/create.png": "/static/media/create.257118a0a5a74bb7d4e4.png",
     "index.html": "/index.html",
-    "main.0854c2fd.css.map": "/static/css/main.0854c2fd.css.map",
-    "main.fd2ce75e.js.map": "/static/js/main.fd2ce75e.js.map",
+    "main.0f03f386.css.map": "/static/css/main.0f03f386.css.map",
+    "main.d7c7146e.js.map": "/static/js/main.d7c7146e.js.map",
     "453.3b3fa17a.chunk.js.map": "/static/js/453.3b3fa17a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0854c2fd.css",
-    "static/js/main.fd2ce75e.js"
+    "static/css/main.0f03f386.css",
+    "static/js/main.d7c7146e.js"
   ]
 }
