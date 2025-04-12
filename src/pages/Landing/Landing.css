@@ -126,6 +126,40 @@ body.landing-page {
     transform: scale(1.05);
 }
 
+.google-play-button {
+    width: 165px;
+  }
+
+.store-button-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: not-allowed;
+}
+
+.coming-soon-tooltip {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px 8px;
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+}
+
+.store-button-wrapper:hover .coming-soon-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+
 
 /* Why Choose Warranti Section */
 .why-choose-warranti {
@@ -382,7 +416,8 @@ body.landing-page {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 15px; /* Increased padding */
+        padding: 0 15px;
+        /* Increased padding */
     }
 
     .header-logo {
@@ -419,7 +454,8 @@ body.landing-page {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        gap: 15px; /* Added gap */
+        gap: 15px;
+        /* Added gap */
         margin-top: 20px;
     }
 

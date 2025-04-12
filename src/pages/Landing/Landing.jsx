@@ -12,7 +12,7 @@ import './Landing.css';
 
 const LandingPage = () => {
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         // Apply a class to body for the landing page
         document.body.classList.add('landing-page');
@@ -27,7 +27,7 @@ const LandingPage = () => {
         <div className="landing-container">
             <header className="header">
                 <img src={logo} alt="Company Logo" className="header-logo" />
-                    <button className="signup-button" onClick={() => navigate("/login")}>Signup/ Signin</button>
+                <button className="signup-button" onClick={() => navigate("/login")}>Signup/ Signin</button>
             </header>
 
             <main className="content">
@@ -39,8 +39,17 @@ const LandingPage = () => {
                             Store, Track, and Never Lose a Warranty again!
                         </p>
                         <div className="hero-buttons">
-                            <img src={googlePlay} alt="App Store" className="store-button" />
-                            <img src={appStore} alt="Google Play Store" className="store-button" />
+                            <div className="store-button-wrapper">
+                                <img src={appStore} alt="App Store" className="store-button" /> 
+                                <span className="coming-soon-tooltip">Coming Soon...</span>
+                            </div>
+                            <a
+                                href="https://play.google.com/store/apps/details?id=com.preeti.warranti_app&pcampaignid=web_share"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <img src={googlePlay} alt="Google Play Store" className="store-button google-play-button" />
+                            </a>
                         </div>
                     </div>
                     <div className="hero-image">
@@ -172,7 +181,7 @@ const LandingPage = () => {
                             </article>
                             <section className="contact">
                                 <h3>CONTACT</h3>
-                                <p>support@warranti.in</p>
+                                <a href="mailto:support@warranti.in">support@warranti.in</a>
                             </section>
                             <nav className="menu">
                                 <h3>MENU</h3>
